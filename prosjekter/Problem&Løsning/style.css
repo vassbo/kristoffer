@@ -1,0 +1,49 @@
+* {
+  margin: 0;
+}
+
+
+body {
+  background: #b42eeb;
+  font-family: 'Segoe UI', 'Roboto', arial, sans-serif;
+}
+
+
+#output {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  color: black;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+  /* filter: blur(-50); */
+}
+
+
+#shuffle {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 11px 8.2px 11px;
+  border-radius: 50%;
+  background: #7c0be2;
+  outline: none;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  font-family: 'Segoe UI', 'Roboto', arial, sans-serif;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+#shuffle:hover {
+  background: #8d1ff0;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+#shuffle:active {
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.4);
+}

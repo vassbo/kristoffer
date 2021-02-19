@@ -1,0 +1,21 @@
+//data = [{playerPos: , board: }]
+function(data) {
+
+var svg = d3.select('#dfdfsdfsdf').selectAll('svg').data(data)
+
+var s = svg.enter().append('svg')
+
+var spaces = s.selectAll('rect.spaces').data(function(d) {
+transform above object into correct data format for self
+d.playerPos
+d.board
+
+return [{pos: , type:, visited:}]
+})
+
+spaces.append('rect').attr({
+class: 'spaces',
+........
+})
+
+}

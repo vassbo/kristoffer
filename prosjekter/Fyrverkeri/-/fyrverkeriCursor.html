@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fyrverkeri</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      /* cursor: none; */
+    }
+    body {
+      background-image: url("bilder/night_city.jpg");
+      /* background-position: center; */
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+    #rocket {
+      display: none;
+      position: absolute;
+      /* border: 1px dashed white; */
+    }
+  </style>
+</head>
+<body id="body">
+  <img id="rocket" src="bilder/rocket.png"></img>
+  <script>
+  var testX = 0;
+  var plusX;
+  var testY = 0;
+  var plusY;
+    // get mouse position on mouse move
+    var mousePosition = {x:0, y:0};
+
+    document.addEventListener('mousemove', function(mouseMoveEvent){
+      mousePosition.x = mouseMoveEvent.pageX;
+      mousePosition.y = mouseMoveEvent.pageY;
+
+      plusX = mousePosition.x;
+      plusY = mousePosition.y;
+    }, false);
+
+    // detect keypress
+    document.getElementById("body").addEventListener("keypress", rocket);
+
+    // move and show rocket
+    function rocket(e) {
+      if (e.keyCode == '32') {
+        var rocket = document.getElementById("rocket");
+        // var rocketX = e.pageX;
+        // var rocketY = e.pageY;
+        // alert(rocketX + ", " + rocketY);
+        var rocketPos = rocket.getBoundingClientRect();
+        // rocketPos.top // y
+        // rocketPos.right // x
+
+        // console.log(rect.top, rect.right, rect.bottom, rect.left);
+        // console.log(mousePosition.x + ", " + mousePosition.y);
+
+
+        rocket.style.display = "inherit";
+
+
+        // this.drawX=this.drawX+this.speed*Math.cos(d2r(angle));
+        // this.drawY=this.drawY+this.speed*Math.sin(d2r(angle));
+
+
+        // alert(mousePosition.x + ", " + mousePosition.y);
+        // while (var i; i = 1; i++; i < 10) {
+        var rocketX = rocketPos.right;
+        var rocketY = rocketPos.top;
+
+        setInterval(function(){
+      //     while (rocketX !== mousePosition.x + "px") { //  && rocketY !== mousePosition.y
+      //       var debug = rocketX = mousePosition.x + "px";
+      //
+      //       if (testX !== mousePosition.x) {
+      //         if (mousePosition.x - testX < 1 && mousePosition.x - testX >= 0) {
+      //           rocket.style.left = mousePosition.x + "px";
+      //         } else if (mousePosition.x - testX < 0) {
+      //           plusX = plusX/2;
+      //           testX = testX-plusX;
+      //           rocket.style.left = testX + "px";
+      //         } else {
+      //           plusX = plusX/2;
+      //           testX = testX+plusX;
+      //           rocket.style.left = testX + "px";
+      //         }
+      //
+      //         console.log("plusX: " + plusX);
+      //         console.log("testX: " + testX);
+      //         console.log("rocketX: " +  mousePosition.x);
+      //       }
+      //
+      //       // debug++;
+      //       console.log("Left style: " + debug);
+      //
+      //       //  = mousePosition.x + "px";
+      //       // rocket.style.top = mousePosition.y + "px";
+      //     }
+      //
+      //       while (rocketY !== mousePosition.y + "px") { //  && rocketY !== mousePosition.y
+      //         var debug2 = rocketY = mousePosition.y + "px";
+      //
+      //         if (testY !== mousePosition.y) {
+      //           if (mousePosition.y - testY < 1 && mousePosition.y - testY >= 0) {
+      //             rocket.style.top = mousePosition.y + "px";
+      //           } else if (mousePosition.y - testY < 0) {
+      //             plusY = plusY/2;
+      //             testY = testY-plusY;
+      //             rocket.style.top = testY + "px";
+      //           } else {
+      //             plusY = plusY/2;
+      //             testY = testY+plusY;
+      //             rocket.style.top = testY + "px";
+      //           }
+      //
+      //           console.log("plusY: " + plusY);
+      //           console.log("testY: " + testY);
+      //           console.log("rocketX: " +  mousePosition.y);
+      //         }
+      //
+      //
+      //
+      //       // debug2++;
+      //       console.log("Top style: " + debug2);
+      //
+      //       //  = mousePosition.x + "px";
+      //       // rocket.style.top = mousePosition.y + "px";
+      //     }
+      //
+      //
+        rocket.style.left = mousePosition.x + "px";
+        rocket.style.top = mousePosition.y + "px";
+      // // }
+
+    }, 1);
+    }
+    }
+
+  </script>
+</body>
+</html>

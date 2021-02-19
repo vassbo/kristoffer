@@ -1,0 +1,29 @@
+[[redirects]]
+  from = "/*"
+  to = "/error/bad-request.html"
+  status = 400
+
+[[redirects]]
+  from = "/*"
+  to = "/error/unauthorised.html"
+  status = 401
+
+[[redirects]]
+  from = "/*"
+  to = "/error/forbidden.html"
+  status = 403
+
+[[redirects]]
+  from = "/*"
+  to = "/error/file-not-found.html"
+  status = 404
+
+[[redirects]]
+  from = "/*"
+  to = "/error/internal-server-error.html"
+  status = 500
+
+[[redirects]]
+  from = "/*"
+  to = "/error/service-unavailable.html"
+  status = 503

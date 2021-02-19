@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Countdown</title>
+<style>
+div {
+	text-align: center;
+}
+
+#main {
+  font-size: 60px;
+  margin-top: 0px;
+	border-radius: 10px;
+}
+
+#hours, #minutes {
+  font-size: 18px;
+  margin-top: 0px;
+	color: #bfbfbf;
+}
+
+#seconds {
+  font-size: 10px;
+  margin-top: 0px;
+	color: #cccccc;
+}
+
+#message {
+  font-size: 30px;
+  margin-top: 0px;
+	font-weight: bold;
+	text-decoration: underline;
+	color: #4d4d4d;
+}
+
+img {
+	width: 800px;
+	height: relative;
+}
+</style>
+</head>
+<body>
+	<div>
+		<p id="message"></p>
+		<span id="main">Laster...</span>
+		<br/>
+		<br/>
+		<span id="hours"></span>
+		<span id="minutes"></span>
+		<span id="seconds"></span>
+	</div>
+<script>
+
+
+
+///////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+
+// Write the date we're counting down to: (Jan/January/01)
+var daysToGo = "Dec 24";
+
+// Write the default message (will not show up on countdown day)
+var message = "Dager til Jul";
+
+// What to show on countdown day
+var text = "GOD JUL! &#x1F384;";
+
+// What to show when expired
+var expired = "UTLØPT!";
+
+// The entities to show after the time value
+var day = " dager";
+var hour = "t";
+var minute = "m";
+var second = "s";
+
+///////////////////////////////////////////////////////////////
+
+///////////////////////////////////////////////////////////////
+
+
+
+// Get this year
+var fullyear = new Date().getFullYear();
+
+// Set the date we're counting down to
+var countDownDate = new Date(daysToGo + ", " + fullyear + " 00:00:00").getTime();
+
+// Update the count down every 1 second
+var update = setInterval(function() {
+
+    // Get todays date and time
+    var now = new Date().getTime();
+
+    // Find the distance between now and the count down date
+    var distance = countDownDate - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    // Output the result in an element with id="main"
+    document.getElementById("main").innerHTML = days + day + " ";
+
+    // Output the result in an element with id="hours"
+    document.getElementById("hours").innerHTML = hours + hour + " ";
+
+		// Output the result in an element with id="minutes"
+    document.getElementById("minutes").innerHTML = minutes + minute + " ";
+
+		// Output the result in an element with id="seconds"
+    document.getElementById("seconds").innerHTML = seconds + second + " ";
+
+		// Default message
+		document.getElementById("message").innerHTML = message + ":";
+
+		// Count days until next countdown
+		var newyear = new Date( "Dec 31, " + fullyear + " 23:59:59").getTime() - now;
+		var next = Math.floor(newyear / (1000 * 60 * 60 * 24));
+
+    // On countdown day, write some text
+    if (distance < 0 && distance > -86399361) {
+        document.getElementById("main").innerHTML = text;
+				document.getElementById("main").style.backgroundImage = "-webkit-linear-gradient(top, #ff3300, #ff9933)";
+				document.getElementById("hours").innerHTML = "";
+				document.getElementById("minutes").innerHTML = "";
+				document.getElementById("seconds").innerHTML = "";
+				document.getElementById("message").innerHTML = "";
+
+    }
+    // If the count down is over, write some text
+    else if (distance < -86399361) {
+        clearInterval(update);
+        document.getElementById("main").innerHTML = expired;
+				document.getElementById("main").style.color = "#f00";
+				document.getElementById("main").style.background = "#000";
+				document.getElementById("hours").innerHTML = "Begynner på nytt om " + next + " dager";
+				document.getElementById("hours").style.color = "#000";
+				document.getElementById("minutes").innerHTML = "";
+				document.getElementById("seconds").innerHTML = "";
+    }
+}, 1000);
+</script>
+</body>
+</html>

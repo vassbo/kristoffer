@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Paint</title>
+
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+  <script src="https://kit.fontawesome.com/0343badcfa.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="side-menu">
+    <div class="Line tool selected"><i class="fas fa-paint-brush"></i></div>
+    <div class="Erase tool"><i class="fas fa-eraser"></i></div>
+    <div class="Text tool"><i class="fas fa-font"></i></div>
+    <div class="Spray tool"><i class="fas fa-spray-can"></i></div>
+    <div class="Rectangle tool"><i class="fas fa-square-full"></i></div>
+    <div class="PickColor tool"><i class="fas fa-eye-dropper"></i></div>
+    <div class="FloodFill tool"><i class="fas fa-fill-drip"></i></div>
+    <!-- <div class="tool">Brush</div> -->
+
+    <!-- <div class="Download tool bottom"><i class="fas fa-url"></i></div>
+    <div class="Download tool bottom"><i class="fas fa-file-import"></i></div> -->
+    <div class="Upload tool bottom" style="bottom:68px;"><i class="fas fa-upload"></i></div>
+    <div class="Download tool bottom"><i class="fas fa-download"></i></div>
+  </div>
+  <div id="options-menu">
+    <div class="option" id="optionName">Line:</div>
+    <div class="option" id="optionColor">Color: <input type="color"></div>
+    <div class="option" id="optionSize"><span id="sizeName">Line</span> size: <select><option value="1">1 pixels</option><option value="2">2 pixels</option><option value="3">3 pixels</option><option value="5" selected>5 pixels</option><option value="8">8 pixels</option><option value="12">12 pixels</option><option value="25">25 pixels</option><option value="35">35 pixels</option><option value="50">50 pixels</option><option value="75">75 pixels</option><option value="100">100 pixels</option></select></div> <!-- Brush size: -->
+    <div class="option hidden" id="optionText">Text size: <select><option value="1">1 pixels</option><option value="2">2 pixels</option><option value="3">3 pixels</option><option value="5">5 pixels</option><option value="8">8 pixels</option><option value="12">12 pixels</option><option value="25" selected>25 pixels</option><option value="35">35 pixels</option><option value="50">50 pixels</option><option value="75">75 pixels</option><option value="100">100 pixels</option></select></div>
+    <div class="option" id="optionClearAll"><input type="button" value="Clear all"></div>
+
+    <a class="option hidden" id="optionDownloadPNG" href='/' target='_blank'>PNG</a>
+    <a class="option hidden" id="optionDownloadJSON" href='/' target='_blank'>JSON</a>
+
+    <!-- <a class="option hidden" id="optionUploadPNG" href='/' target='_blank'>PNG</a>
+    <a class="option hidden" id="optionUploadJSON" href='/' target='_blank'>JSON</a> -->
+    <!-- <a class="option hidden" id="optionUploadURL" href='/' target='_blank'>URL</a> -->
+    <div class="option hidden" id="optionUpload">
+      <div>Open file: <input type="file"></div><div>Open URL: <input id="uploadURL" type="text"><button type="button">load</button></div>
+    </div>
+  </div>
+  <div id="paint-app"></div>
+
+  <script src="js/script.js"></script>
+  <script src="js/helpers.js"></script>
+  <script src="js/controls.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/initialize.js"></script>
+</body>
+</html>

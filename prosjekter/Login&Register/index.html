@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+        <div class="login">
+                <form class="form">
+                    <input class="input" type="text" placeholder="Username" name="un"/>
+                    <input class="input" type="password" placeholder="Password" name="pw"/>
+                    <input class="button" type="button" onclick="check(this.form)" value="Login"/>
+                    <p class="message">Not registered? <a href="registrer.html">Create an account</a></p>
+                    <p id="message"></p>
+                </form>
+        </div>
+
+<script>
+function check(form)
+{
+//Username and passwords are case sensitive
+ if(form.un.value == "Hello" && form.pw.value == "World") {
+    alert("You have successfully logged in!");
+    document.getElementById("message").innerHTML = "";
+  }
+ else if(form.un.value == "" && form.pw.value == "") {
+   document.getElementById("message").innerHTML = "Please enter your username and password!";
+ }
+ else if(form.un.value == "" && form.pw.value !== "") {
+   document.getElementById("message").innerHTML = "Please enter your username!";
+ }
+ else if(form.un.value !== "" && form.pw.value == "") {
+   document.getElementById("message").innerHTML = "Please enter your password!";
+ }
+ else {
+   document.getElementById("message").innerHTML = "The username and password you entered doesn't match";
+  }
+}
+</script>
+    </body>
+</html>

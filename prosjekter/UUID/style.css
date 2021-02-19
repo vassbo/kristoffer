@@ -1,0 +1,81 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+body {
+  background: #323232;
+  text-align: center;
+  height: 100vh;
+}
+
+.noSelect {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently supported by Chrome and Opera */
+}
+
+
+p {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  color: #fff;
+  font-family: monospace;
+  width: 100%;
+  font-size: 22px;
+}
+
+@media only screen and (max-width: 600px) {
+  p {
+    font-size: 16px;
+  }
+}
+@media only screen and (max-width: 400px) {
+  p {
+    font-size: 12px;
+  }
+}
+
+
+#copied {
+  position: absolute;
+  top: 80%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  width: 240px;
+  height: 10px;
+  padding: 20px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 6px rgba(0, 0, 0, 0.2);
+
+  transition: all .5s;
+}
+#copied p {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 12px;
+}
+.fade-in {
+  opacity: 1;
+}
+.fade-out {
+  opacity: 0;
+}
+
+
+.info {
+  color: rgba(255, 255, 255, 0.4);
+  top: 60%;
+  font-size: 10px;
+}
+
+footer .info {
+  color: rgba(255, 255, 255, 0.2);
+  top: 96%;
+}

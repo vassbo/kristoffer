@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Addiction Clicker</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- /\/\/\/\/\ SIDE MENU /\/\/\/\/\ -->
+  <div id="menu">
+    <div id="menuContent">
+      <div class="menuTitle">
+        <h1 id="title">AddictClicker</h1>
+      </div>
+      <div id="scrollDiv">
+
+
+        <!-- /\/\/\/\/\ MAIN MENU /\/\/\/\/\ -->
+        <div id="main">
+
+          <div class="menuText">
+            <p>Cookies per click: (<span id="cookiesperclickAmount">1</span>)</p>
+          </div>
+          <div onclick="buy('cookiesperclick')" class="menuButton">
+            <p><span id="cookiesperclickPrize">40</span> <span id="cookiesperclickCookies">cookies</span></p>
+          </div>
+
+          <br><br>
+
+          <div class="menuText">
+            <h3>Buy:</h3>
+          </div>
+
+          <div id="autoclickersBtn" onclick="button(this.id)" class="menuButton">
+            <p>Autoclickers</p>
+          </div>
+          <div id="backgroundsBtn" onclick="button(this.id)" class="menuButton">
+            <p>Backgrounds</p> <!-- flip (rotateY), rotateZ, rotateX) -->
+          </div>
+          <div id="cookieBtn" onclick="button(this.id)" class="menuButton">
+            <p>Cookie</p> <!-- zoom in/out (size) -->
+          </div>
+
+          <!-- <br><br>
+          <div class="menuText">
+            <h3>Stats:</h3>
+            <br>
+            <p>Money per click:</p>
+            <p>Cookies per second: <span id="cookiesPerSecAmount">0</span></p>
+          </div> -->
+
+          <!-- <br><br>
+          <div class="menuText">
+            <h3>About:</h3>
+            <br>
+            <p>Project Started 01.05.19</p>
+            <p>Created by Kristoffer Vassbø</p>
+          </div> -->
+
+        </div>
+
+
+        <!-- /\/\/\/\/\ Autoclickers /\/\/\/\/\ -->
+        <div id="autoclickers" class="hidden">
+
+          <div class="menuText">
+            <p>Autoclickers: (<span id="autoclickersAmount">0</span>)</p>
+          </div>
+          <div onclick="buy('autoclickers')" class="menuButton">
+            <p><span id="autoclickersPrize">5</span> <span id="autoclickersCookies">cookies</span></p>
+          </div>
+
+          <div class="menuText">
+            <p>Speedclickers: (<span id="speedclickersAmount">0</span>)</p>
+          </div>
+          <div onclick="buy('speedclickers')" class="menuButton">
+            <p><span id="speedclickersPrize">100</span> <span id="speedclickersCookies">cookies</span></p>
+          </div>
+
+        </div>
+
+        <!-- /\/\/\/\/\ Backgrounds /\/\/\/\/\ -->
+        <div id="backgrounds" class="hidden">
+
+          <div onclick="buybg('defaultColor')" class="menuButton menuButtonColor">
+            <div id="defaultColor" class="colorFill" style="background:#e0cdbc;"><i id="defaultColorPrize" class="material-icons">check_circle</i></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+
+          <div onclick="buybg('redColor')" class="menuButton menuButtonColor">
+            <div id="redColor" class="colorFill" style="background:#c32020;"><p id="redColorPrize">1000 cookies</p></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+          <div onclick="buybg('orangeColor')" class="menuButton menuButtonColor">
+            <div id="orangeColor" class="colorFill" style="background:#d98b2c;"><p id="orangeColorPrize">1000 cookies</p></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+          <div onclick="buybg('yellowColor')" class="menuButton menuButtonColor">
+            <div id="yellowColor" class="colorFill" style="background:#d5d127;"><p id="yellowColorPrize">1000 cookies</p></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+          <div onclick="buybg('greenColor')" class="menuButton menuButtonColor">
+            <div id="greenColor" class="colorFill" style="background:#20c34f;"><p id="greenColorPrize">1000 cookies</p></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+          <div onclick="buybg('blueColor')" class="menuButton menuButtonColor">
+            <div id="blueColor" class="colorFill" style="background:#2066c3;"><p id="blueColorPrize">1000 cookies</p></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+          <div onclick="buybg('indigoColor')" class="menuButton menuButtonColor">
+            <div id="indigoColor" class="colorFill" style="background:#8620c3;"><p id="indigoColorPrize">1000 cookies</p></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+          <div onclick="buybg('violetColor')" class="menuButton menuButtonColor">
+            <div id="violetColor" class="colorFill" style="background:#b820c3;"><p id="violetColorPrize">1000 cookies</p></div>
+            <!-- <p><span id="autoclickersPrize">5</span> cookies</p> -->
+          </div>
+
+        </div>
+
+
+        <!-- /\/\/\/\/\ Backgrounds /\/\/\/\/\ -->
+        <div id="backgrounds" class="hidden">
+          <!-- cookie -->
+          <!-- https://www.abcbakers.com/media/1197/caramelchocolatechip.png -->
+          <!-- https://i.imgur.com/PdIROCz.png -->
+          <!-- https://ksr-ugc.imgix.net/assets/011/757/977/1d35823a9374efe51d35b5ff610b7732_original.png?ixlib=rb-1.1.0&crop=faces&w=1552&h=873&fit=crop&v=1463690563&auto=format&frame=1&q=92&s=1674ece240c39061ae8ba6d3c28344d8 -->
+          <!-- https://greatamericancookies.s3.amazonaws.com/app/uploads/2015/10/OriginalChocChipMM1.png -->
+          <!-- https://upload.wikimedia.org/wikipedia/commons/7/70/Cookie.png -->
+
+          <!-- OTHER STUFF (not cookie)??? -->
+        </div>
+
+
+
+
+        <div id="back" class="hidden">
+          <div id="backBtn" onclick="goBack()" class="menuBottomButton one">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+
+
+
+
+        <!-- /\/\/\/\/\ FOOTER /\/\/\/\/\ -->
+        <div class="menuFooter">
+          <div class="menuFooterC">
+            <p>(You have spent <span id="time">0h and 0m</span> on this)</p>
+            <p>Project Started 01.05.19</p>
+            <p>&copy Kristoffer Vassbø 2019</p>
+          </div>
+        </div>
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- /\/\/\/\/\ MAIN /\/\/\/\/\ -->
+  <div id="clicksDiv">
+    <p id="clicks">0 cookies</p>
+    <p id="smallText"><span id="cookiesPerSecAmount">0</span> /sec</p>
+  </div>
+
+  <div id="image">
+      <img onclick="clickCookie()" id="mainImage" alt="cookie" class="mainImage" src="cookie.png" draggable="false"/>
+  </div>
+
+  <div id="informDiv">
+    <p id="inform">Display message</p>
+    <!-- <p id="smallText"><span id="cookiesPerSecAmount">0</span>/s</p> -->
+  </div>
+
+  <div id="clockDiv">
+    <p id="clock">00:00</p>
+  </div>
+
+
+  <!-- /\/\/\/\/\ FAV BUTTON /\/\/\/\/\ -->
+   <!-- <div class="favButton1">
+     <button id="zoomOut" class="button" onclick="quickZoom(this.id)">
+       <i class="material-icons">local_grocery_store</i>
+     </button>
+   </div>
+   <div class="favButton2">
+     <button id="zoomIn" class="button" onclick="quickZoom(this.id)">
+       <i class="material-icons">poll</i>
+       <i class="material-icons">info</i>
+     </button>
+   </div> -->
+
+
+
+   <script src="script.js"></script>
+</body>
+</html>

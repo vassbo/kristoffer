@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Login</title>
+        <link rel="stylesheet" type="text/css" href="style.css">
+    </head>
+    <body>
+      <div class="login">
+
+<form class="form">
+      <input class="input" type="text" placeholder="Name" name="nm" required/>
+      <input class="input" type="password" placeholder="Password" name="pw" required/>
+      <input class="input" type="text" placeholder="Email" name="em" required/>
+      <input class="button" type="button" onclick="check(this.form)" value="Create"/>
+      <p class="message">Already registered? <a href="index.html">Sign In</a></p>
+      <p id="message"></p>
+    </form>
+
+</div>
+
+<script>
+function login() {
+  location.replace("index.html");
+}
+
+  </body>
+</html>

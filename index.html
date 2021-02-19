@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <title>Kristoffer Vassbø | Min hjemmeside</title>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO meta tags -->
+    <meta name="description" content="Min egen hjemmeside. Kristoffer Vassbøs hjemmeside. Velkommen til min hjemmeside.">
+    <meta name="keywords" content="Kristoffer Vassbø, hjemmeside, nettside, musikk, prosjekter, HTML, programmering, CV">
+    <meta name="author" content="Kristoffer Vassbø">
+    <!-- Google search vertification -->
+    <meta name="google-site-verification" content="xq21ugjYY9QXdB4MTvZEPswM72PwuhWzU-x0QzYAPhw" />
+    <!-- Styles -->
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+    <!-- Favicons - source: https://favicon.io/emoji-favicons/ (Pushpin) -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicons/favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+</head>
+<body>
+    <header>
+        <div>
+            <nav>
+                <h3>Kristoffer Vassbø</h3>
+            </nav>
+            <nav>
+                <a href="#" class="active">Hjem</a>
+                <a href="#musikk">Musikk</a>
+                <a href="#prosjekter">Prosjekter</a>
+                <a href="#om">Om meg</a>
+            </nav>
+        </div>
+    </header>
+    <div style="height: var(--header-height);"></div>
+
+
+    <!-- Music player -->
+    <div id="musicPlayer" class="hidden" style="bottom: 0;">
+        <div>
+            <span style="width: 25%;">
+                <img src="" alt="Cover" class="cover-preview-small">
+                <h4></h4>
+            </span>
+            <span class="timeInfo">
+                <p class="progress">0:00</p>
+                <nav class="slider">
+                    <span class="base">
+                        <span class="progressBar"></span>
+                        <span class="handle"></span>
+                    </span>
+                </nav>
+                <p class="duration">0:00</p>
+            </span>
+            <span>
+                <span class="previous material-icons">skip_previous</span>
+                <span class="play material-icons">play_arrow</span>
+                <span class="next material-icons">skip_next</span>
+                <span class="shuffle material-icons">shuffle</span>
+                <span class="repeat material-icons active">repeat</span>
+                <span class="fullscreen material-icons">fullscreen</span>
+            </span>
+        </div>
+    </div>
+
+    <img id="cover" src="" class="hidden">
+
+
+    <!-- Project popup -->
+    <div id="projectPopup" class="hidden">
+        <div>
+            <nav>
+                <span></span>
+                <span style="text-align: center;">
+                    <h3 style="color: var(--primary);"></h3>
+                    <p style="font-style: italic;font-size: 0.7em;opacity: 0.6;"></p>
+                </span>
+                <span class="material-icons" onclick="closePopup();">close</span>
+            </nav>
+            <iframe src=""></iframe>
+        </div>
+    </div>
+
+    <!-- SECTIONS -->
+
+    <section class="top" style="height: 75vh;">
+        <span class="animation"><h1>Hei.</h1></span>
+        <p>Dette er min hjemmeside</p>
+    </section>
+
+    <section id="musikk" style="padding: 100px 10vw;">
+        <span class="title">
+            <h2>Min musikk</h2>
+            <a title="Bedre kvalitet og gratis nedlastning på SoundCloud" href="https://soundcloud.com/vizzber" target="_blank" style="margin-left: 10px;">
+                <i class="fa active fa-soundcloud"></i></a>
+        </span>
+        <div class="tracks"></div>
+    </section>
+    
+    <section id="prosjekter">
+        <span class="title">
+            <h2>Mine prosjekter</h2>
+            <span title="Sorter etter fullført" class="material-icons" style="margin-left: 10px;" onclick="sortProjects(this);">sort</span>
+        </span>
+        <div class="projects">
+            <div class="byCustom"></div>
+            <div class="byProgress hidden"></div>
+        </div>
+    </section>
+
+    <section id="om">
+        <span class="title">
+            <h2>Om meg</h2>
+            <!-- <span title="Sorter etter fullført" class="material-icons" style="margin-left: 10px;" onclick="sortProjects(this);">sort</span> -->
+        </span>
+
+        <!-- <img src="assets/images/kristoffer-nobg.png" style="filter: brightness(0.8);width: auto;height: 200px;"> -->
+        
+        <h6 title="Status" style="text-align: center;">Lærling for EL-TEAM AS</h6>
+        <!--  •  -->
+        <p>Født 05. november 2002 (<span id="age"></span> år). Glad i musikk. Er alltid klar for nye utfordringer.</p>
+
+        <button class="collapsible">Utdanning</button>
+        <div class="content hidden">
+            <span class="table">
+                 <span><h6>Aug. 2020 – d.d.</h6><p>Lærling for EL-TEAM AS</p></span>
+                 <span><h6>Aug. 2019 – Jun. 2020</h6><p>Tryggheim VGS: Vg2 Elenergi</p></span>
+                 <span><h6>Aug. 2018 – Jun. 2019</h6><p>Tryggheim VGS: Vg1 Elektrofag</p></span>
+                 <span><h6>Aug. 2015 – Jun. 2018</h6><p>Lye ungdomsskule</p></span>
+                 <span><h6>Aug. 2008 – Jun. 2015</h6><p>Lye Barneskule</p></span>
+            </span>
+        </div>
+        <button class="collapsible">Erfaring</button>
+        <div class="content hidden">
+            <span class="table">
+                <span><h6>Nov. 2020</h6><p>Førerkort klasse B</p></span>
+                <span><h6>Juli 2019, Juli 2020</h6><p>Sommerjobb på Lyngdal Bibelcamp: KidzCamp og projektor</p></span>
+                <span><h6>Sep. 2018 – Jun. 2019</h6><p>Ungdomsbedrift: Økonomiansvarlig</p></span>
+                <span><h6>Apr. 2018</h6><p>Avløysarkurs</p></span>
+                <span><h6>Aug. 2014 – d.d.</h6><p>Aktiv i menigheten og ungdomslaget</p></span>
+            </span>
+        </div>
+        <button class="collapsible">Ferdigheter</button>
+        <div id="skills" class="content hidden"></div>
+    </section>
+
+
+    <footer>
+        <nav>
+            <div>
+                <!-- netlify form -->
+                <form name="contact" method="POST" action="vellykket.html" data-netlify="true">
+                    <h4>Kontakt meg</h4>
+                    <input placeholder="Navnet ditt" type="text" name="Navn" required>
+                    <input placeholder="E-posten din" type="email" name="E-post">
+                    <textarea placeholder="Melding" type="text" rows="3" name="Melding" style="resize: none;" required></textarea>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </nav>
+        <nav>
+            <div>
+                <span>
+                    <a title="Min profil på Facebook" href="https://facebook.com/kristoffervassbo" target="_blank"><i class="fa fa-facebook"></i></a>
+                    <a title="Min musikk på SoundCloud" href="https://soundcloud.com/vizzber" target="_blank"><i class="fa fa-soundcloud"></i></a>
+                    <a title="Min musikk-kanal på YouTube" href="https://youtube.com/channel/UCTM1m_UbhCWzLnD0SSTsLVw" target="_blank"><i class="fa fa-youtube-play"></i></a>
+                    <a title="Min profil på GitHub" href="https://github.com/vassbo" target="_blank"><i class="fa fa-github"></i></a>
+                    <a title="Min profil på Codepen" href="https://codepen.io/vassbo" target="_blank"><i class="fa fa-codepen"></i></a>
+                    <a title="Min profil på Pinterest" href="https://pinterest.com/kristoffervassbo" target="_blank"><i class="fa fa-pinterest"></i></a>
+                    <a title="Min profil på Twitter" href="https://twitter.com/vizzber" target="_blank"><i class="fa fa-twitter"></i></a>
+                </span>
+                <!--<a href="https://www.google.com/maps/place/Erlevegen%2017,%20Bryne" target="_blank">Erlevegen 17, 4347 LYE</a><br>-->
+                <!--<a href="tel:+4741640448">416 40 448</a> • -->
+                <a href="mailto:kristoffervassbo@gmail.com">kristoffervassbo@gmail.com</a><br />
+                <p>&copy; 2019-2021 Kristoffer Vassbø</p>
+
+                <button onclick="changeTheme();">Change Theme</button>
+            </div>
+        </nav>
+    </footer>
+
+    <script src="assets/js/data.js"></script>
+    <script src="assets/js/initialize.js"></script>
+    <script src="assets/js/script.js" defer></script>
+    <script src="assets/js/music.js" defer></script>
+</body>
+</html>
+
+<!-- todo: bibelvers -->
+<!-- todo: site archive -->
+<!-- todo: player padding bottom -->
+<!-- todo: kristoffefer vassbø heading click! -->

@@ -1,0 +1,459 @@
+* {
+  margin: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+body {
+  /* font-family: sans-serif; */
+  user-select: none; /* no user seletion */
+}
+
+
+/* TODO: credit: https://codepen.io/simurai/pen/DwJdq */
+
+
+/* #elevatorDiv {
+  position: absolute;
+  left: 400px;
+  transform: translateX(-50%);
+  height: 100%;
+} */
+/* #elevator {
+  position: relative;
+  top: 500px;
+  left: 400px;
+  transform: translateX(-50%);
+  display: inline-block;
+} */
+
+#elevatorDiv {
+  position: relative;
+  /* top: 500px; */
+  left: 400px;
+  /* height: 100%; */
+  display: inline-block;
+  transition: top 1s; /* 10s */ /* TODO: 12s */
+  z-index: 1;
+}
+
+#elevator {
+  position: absolute;
+  transform: translateX(-50%);
+  /* margin-top: 100px; */
+}
+
+#elevator-inside {
+  width: 200px;
+  height: 300px;
+  background: black;
+}
+
+/* button {
+  width: 50px;
+  height: 50px;
+  background: gray;
+  border: 2px solid darkgray;
+  border-radius: 50%;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 2px 2px 1px rgba(0, 0, 0, 0.5);
+}
+button:active {
+  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+} */
+
+
+
+.elevator-door {
+  /* background: gray; */
+  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
+
+    linear-gradient(180deg, hsl(0,0%,78%)  0%,
+    hsl(0,0%,80%) 47%,
+    hsl(0,0%,68%) 53%,
+    hsl(0,0%,60%)100%)
+}
+
+.elevator-door1 {
+  position: absolute;
+  width: 99px;
+  height: 300px;
+  border-right: 1px solid #8a8a8a;
+
+  z-index: 10;
+
+  transition: 1s; /* 3.5s */
+  transition-timing-function: ease-in-out;
+
+  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.7);
+}
+.elevator-door1.opened {
+  margin-left: -100px;
+}
+
+.elevator-door2 {
+  position: absolute;
+  margin-left: 100px;
+  width: 99px;
+  height: 300px;
+  border-left: 1px solid #8a8a8a;
+
+  z-index: 10;
+
+  transition: 1s; /* 3.5s */
+  transition-timing-function: ease-in-out;
+
+  box-shadow: 4px 4px 2px rgba(0, 0, 0, 0.7);
+}
+.elevator-door2.opened {
+  margin-left: 200px;
+}
+
+
+
+
+/* Inside */
+/* source: https://3dtransforms.desandro.com/cube */
+
+.scene {
+  width: 200px;
+  height: 300px;
+  border: 1px solid #CCC;
+  margin: 80px;
+  perspective: 400px;
+  margin: 0px;
+
+  /* box-sizing: border-box; */
+}
+
+.cube {
+  width: 200px;
+  height: 300px;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(-100px);
+  transition: transform 1s;
+}
+
+/* .cube.show-front  { transform: translateZ(-100px) rotateY(   0deg); }
+.cube.show-right  { transform: translateZ(-100px) rotateY( -90deg); }
+.cube.show-back   { transform: translateZ(-100px) rotateY(-180deg); }
+.cube.show-left   { transform: translateZ(-100px) rotateY(  90deg); }
+.cube.show-top    { transform: translateZ(-150px) rotateX( -90deg); }
+.cube.show-bottom { transform: translateZ(-150px) rotateX(  90deg); } */
+
+.cube__face {
+  position: absolute;
+  width: 200px;
+  height: 300px;
+  border: 2px solid black;
+  line-height: 300px;
+  font-size: 40px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+
+  /* border: 10px solid black; */
+}
+.cube__face_bottom {
+  height: 200px;
+  line-height: 200px;
+}
+
+/* .cube__face--front  { background: hsla(  0, 100%, 50%, 0.7); }
+.cube__face--right  { background: hsla( 60, 100%, 50%, 0.7); }
+.cube__face--back   { background: hsla(120, 100%, 50%, 0.7); }
+.cube__face--left   { background: hsla(180, 100%, 50%, 0.7); }
+.cube__face--top    { background: hsla(240, 100%, 50%, 0.7); }
+.cube__face--bottom { background: hsla(300, 100%, 50%, 0.7); } */
+
+.cube__face--right  { background: #969696; }
+.cube__face--back   { background: #acaaaa; }
+.cube__face--left   { background: #969696; }
+.cube__face--top    { background: #5c5c5c; }
+.cube__face--bottom { background: #5c5c5c; }
+
+.cube__face--front  { transform: rotateY(  0deg) translateZ(100px); }
+.cube__face--right  { transform: rotateY( 90deg) translateZ(100px); }
+.cube__face--back   { transform: rotateY(180deg) translateZ(100px); }
+.cube__face--left   { transform: rotateY(-90deg) translateZ(100px); }
+.cube__face--top    { transform: rotateX( 90deg) translateZ(100px); }
+.cube__face--bottom { transform: rotateX(-90deg) translateZ(200px); }
+
+
+
+
+
+
+
+
+
+
+
+#elevator_buttons {
+  position: absolute;
+  right: -50px;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Buttons */
+/* source: https://codepen.io/simurai/pen/DwJdq */
+
+
+/* globals */
+
+@import url(https://fonts.googleapis.com/css?family=Droid+Sans:regular,bold);
+@import url(prefixes.css);
+
+html {
+  font:62.5%/1 "Droid Sans", "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+  /* background-color: hsla(0,0%,90%,1);
+  background-image: linear-gradient(-45deg, hsla(0,0%,0%,0), hsla(0,0%,0%,.05) );
+  background-size: 5px; */
+
+  background: #e6e6e6;
+}
+
+/* body {
+  margin: 100px;
+} */
+
+button { border: none; display: block; }
+a { text-decoration: none; display: block; }
+
+
+
+/* Metal ------------------------- */
+
+.metal {
+  position: relative;
+  margin: 4px; /* 40px auto */
+  display: inline;
+  outline: none;
+
+  font: bold 4em/1em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  text-align: center;
+  color: hsla(0,0%,20%,1);
+  text-shadow: hsla(0,0%,40%,.5) 0 -1px 0, hsla(0,0%,100%,.6) 0 2px 1px;
+
+  background-color: hsl(0,0%,90%);
+  box-shadow: inset hsla(0,0%,15%,  1) 0  0px 0px 3px, /* border */
+    inset hsla(0,0%,15%, .8) 0 -1px 5px 4px, /* soft SD */
+    inset hsla(0,0%,0%, .25) 0 -1px 0px 7px, /* bottom SD */
+    inset hsla(0,0%,100%,.7) 0  2px 1px 7px, /* top HL */
+
+    hsla(0,0%, 0%,.15) 0 -5px 6px 4px, /* outer SD */
+    hsla(0,0%,100%,.5) 0  5px 6px 4px; /* outer HL */
+
+  transition: color .2s;
+}
+
+.ground {
+  box-shadow: inset #0f8b2a 0  0px 0px 5px, /* border */
+    inset hsla(0,0%,15%, .8) 0 -1px 5px 4px, /* soft SD */
+    inset hsla(0,0%,0%, .25) 0 -1px 0px 7px, /* bottom SD */
+    inset hsla(0,0%,100%,.7) 0  2px 1px 7px, /* top HL */
+
+    hsla(0,0%, 0%,.15) 0 -5px 6px 4px, /* outer SD */
+    hsla(0,0%,100%,.5) 0  5px 6px 4px; /* outer HL */
+}
+
+
+
+/* Radial ------------------------- */
+
+.radial.metal {
+  width: 100px;
+  height: 100px;
+  line-height: 103px;
+  border-radius: 80px;
+  background-image: -webkit-radial-gradient(  50%   0%,  8% 50%, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,0) 100%),
+    -webkit-radial-gradient(  50% 100%, 12% 50%, hsla(0,0%,100%,.6) 0%, hsla(0,0%,100%,0) 100%),
+    -webkit-radial-gradient(   0%  50%, 50%  7%, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,0) 100%),
+    -webkit-radial-gradient( 100%  50%, 50%  5%, hsla(0,0%,100%,.5) 0%, hsla(0,0%,100%,0) 100%),
+
+    -webkit-repeating-radial-gradient( 50% 50%, 100% 100%, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   3%, hsla(0,0%,  0%,.1) 3.5%),
+    -webkit-repeating-radial-gradient( 50% 50%, 100% 100%, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%,.1) 7.5%),
+    -webkit-repeating-radial-gradient( 50% 50%, 100% 100%, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.2) 2.2%),
+
+    -webkit-radial-gradient( 50% 50%, 200% 50%, hsla(0,0%,90%,1) 5%, hsla(0,0%,85%,1) 30%, hsla(0,0%,60%,1) 100%);
+}
+.radial.metal.outside {
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  font: bold 3.5em/1em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+}
+
+
+.metal.radial:before, .metal.radial:after {
+  content: "";
+  top: 0;
+  left: 0;
+  position: absolute;
+  width: inherit;
+  height: inherit;
+  border-radius: inherit;
+
+  /* fake conical gradients */
+  background-image: -webkit-radial-gradient(  50%   0%, 10% 50%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%),
+    -webkit-radial-gradient(  50% 100%, 10% 50%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%),
+    -webkit-radial-gradient(   0%  50%, 50% 10%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%),
+    -webkit-radial-gradient( 100%  50%, 50% 06%, hsla(0,0%,0%,.1) 0%, hsla(0,0%,0%,0) 100%);
+}
+.metal.radial:before { transform: rotate( 65deg); }
+.metal.radial:after { transform: rotate(-65deg); }
+
+
+
+
+/* Linear ------------------------- */
+
+.metal.linear {
+  width: 100px;
+  font-size: 4em;
+  height: 80px;
+  border-radius: .5em;
+  background-image: -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0)   6%, hsla(0,0%,100%, .1) 7.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,  0%,0) 0%, hsla(0,0%,  0%,0)   4%, hsla(0,0%,  0%,.03) 4.5%),
+    -webkit-repeating-linear-gradient(left, hsla(0,0%,100%,0) 0%, hsla(0,0%,100%,0) 1.2%, hsla(0,0%,100%,.15) 2.2%),
+
+    linear-gradient(180deg, hsl(0,0%,78%)  0%,
+    hsl(0,0%,90%) 47%,
+    hsl(0,0%,78%) 53%,
+    hsl(0,0%,70%)100%);
+}
+
+
+/* Oval ------------------------- */
+
+.metal.linear.oval {
+  margin-top: 100px;
+  width: 70px;
+  height: 60px;
+  line-height: 60px !important;
+  border-radius: 50%;
+  font: italic bold 3em/50px Georgia, "Times New Roman", Times, serif;
+}
+
+
+/* hover ------------------------- */
+
+.metal:hover {
+  cursor: pointer;
+}
+
+/* active ------------------------- */
+
+.metal.active, .metal:active, .metal.callActive {
+  color: hsl(210, 100%, 40%);
+  text-shadow: hsla(210,100%,20%,.3) 0 -1px 0, hsl(210,100%,85%) 0 2px 1px, hsla(200,100%,80%,1) 0 0 5px, hsla(210,100%,50%,.6) 0 0 20px;
+  box-shadow:
+    inset hsla(210,100%,30%,  1) 0  0px 0px 3px, /* border */
+    inset hsla(210,100%,15%, .4) 0 -1px 5px 4px, /* soft SD */
+    inset hsla(210,100%,20%,.25) 0 -1px 0px 7px, /* bottom SD */
+    inset hsla(210,100%,100%,.7) 0  2px 1px 7px, /* top HL */
+
+    hsla(210,100%,75%, .8) 0  0px 3px 2px, /* outer SD */
+    hsla(210,50%,40%, .25) 0 -5px 6px 4px, /* outer SD */
+    hsla(210,80%,95%,   1) 0  5px 6px 4px; /* outer HL */
+}
+
+.metal.bell.active, .metal.bell:active {
+  color: hsl(0, 100%, 40%);
+  text-shadow: hsla(0, 100%, 20%, 0.3) 0 -1px 0, hsl(0, 100%, 85%) 0 2px 1px, hsla(0, 100%, 80%, 1) 0 0 5px, hsla(0, 100%, 50%, 0.6) 0 0 20px;
+  box-shadow:
+    inset hsla(0, 100%, 30%, 1) 0  0px 0px 3px, /* border */
+    inset hsla(0, 100%, 15%, 0.4) 0 -1px 5px 4px, /* soft SD */
+    inset hsla(0, 100%, 20%, 0.25) 0 -1px 0px 7px, /* bottom SD */
+    inset hsla(0, 0%, 100%, 0.25) 0  2px 1px 7px, /* top HL */
+
+    hsla(0, 100%, 75%, 0.8) 0  0px 3px 2px, /* outer SD */
+    hsla(0, 49%, 40%, 0.25) 0 -5px 6px 4px, /* outer SD */
+    hsla(210,80%,95%,   1) 0  5px 6px 4px; /* outer HL */
+}
+
+
+.metal.ground.active, .metal.ground:active {
+  color: hsl(210, 100%, 40%);
+  text-shadow: hsla(210,100%,20%,.3) 0 -1px 0, hsl(210,100%,85%) 0 2px 1px, hsla(200,100%,80%,1) 0 0 5px, hsla(210,100%,50%,.6) 0 0 20px;
+  box-shadow:
+    inset #0f8b2a 0  0px 0px 5px, /* border */
+    inset hsla(210,100%,15%, .4) 0 -1px 5px 4px, /* soft SD */
+    inset hsla(210,100%,20%,.25) 0 -1px 0px 7px, /* bottom SD */
+    inset hsla(210,100%,100%,.7) 0  2px 1px 7px, /* top HL */
+
+    hsla(210,100%,75%, .8) 0  0px 3px 2px, /* outer SD */
+    hsla(210,50%,40%, .25) 0 -5px 6px 4px, /* outer SD */
+    hsla(210,80%,95%,   1) 0  5px 6px 4px; /* outer HL */
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* outside */
+
+#floorsDiv {
+  height: 100vh;
+  width: 600px;
+  overflow: auto;
+}
+
+.outside_buttons {
+  /* position: absolute;
+  left: 100px;
+  top: 50%;
+  transform: translate(-50%, -50%); */
+  margin: 200px 0;
+}
+.outside_buttons button {
+  display: grid;
+}
+
+.floorNum {
+  display: inline-block;
+  font: bold 4em/1em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  transform: translateY(-50%);
+  margin-left: 30px;
+  margin-right: 10px;
+}
+
+.screen {
+  width: 100px;
+  height: 50px;
+  background: #486e5e;
+  display: inline-block;
+  font: bold 4em/1em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  margin-left: 10px;
+  /* padding: 10px; */
+}
+.screen p {
+  margin-top: 25px;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+
+
+
+
+#debug {
+  position: absolute;
+  left: 40vw;
+  top: 0;
+  /* transform: translateX(200%); */
+}

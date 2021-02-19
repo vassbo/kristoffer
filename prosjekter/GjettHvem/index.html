@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Gjett Hvem?</title>
+
+  <link rel="stylesheet" href="style.css">
+  <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> -->
+</head>
+<body>
+  <h1 id="title" class="noselect">Gjett Hvem?</h1>
+  <div id="left">
+    <div class="center">
+      <input placeholder="Still et ja/nei spørsmål..." id="input">
+      <div id="questions" class="noselect"></div>
+    </div>
+  </div>
+  <div id="right">
+    <div class="center">
+      <div id="question">Still et spørsmål!</div>
+      <div id="answer" class="noselect"></div>
+      <div id="finish" class="hidden"></div>
+      <button id="again" class="hidden noselect">Start på nytt</button>
+    </div>
+  </div>
+
+  <script src="persons.js"></script>
+  <script src="script.js"></script>
+
+  <!-- TODO: places too...?? -->
+</body>
+</html>

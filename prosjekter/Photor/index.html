@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <!-- add more meta tags -->
+  <title>Photor | Photo Editor</title>
+
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+  <!-- <script src="dom-to-image.min.js"></script> -->
+  <!-- https://rawgit.com/tsayen/dom-to-image/master/dist/dom-to-image.min.js -->
+  <script src="dom-to-image.js"></script>
+  <!-- <script src="FileSaver.js"></script> -->
+
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> -->
+  <link href="https://fonts.googleapis.com/css?family=Baloo+Chettan|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
+</head>
+<body>
+
+  <!-- /\/\/\/\/\ SIDE MENU /\/\/\/\/\ -->
+  <div id="menu">
+    <div id="menuContent">
+      <div class="menuTitle">
+        <h1 id="title">Photor</h1>
+      </div>
+      <div id="scrollDiv">
+
+
+        <!-- /\/\/\/\/\ MAIN MENU /\/\/\/\/\ -->
+        <div id="main">
+
+          <div id="filtersBtn" onclick="button(this.id)" class="menuButton">
+            <p>Filters</p>
+          </div>
+
+          <!-- <div id="filters2Btn" onclick="button(this.id)" class="menuButton">
+            <p>Filters2</p>
+          </div> -->
+
+
+          <div id="rotateBtn" onclick="button(this.id)" class="menuButton">
+            <p>Rotate</p> <!-- flip (rotateY), rotateZ, rotateX) -->
+          </div>
+          <div id="zoomBtn" onclick="button(this.id)" class="menuButton">
+            <p>Zoom</p> <!-- zoom in/out (size) -->
+          </div>
+          <!-- WIP: -->
+          <div id="textBtn" onclick="button(this.id)" class="menuButton">
+            <p>Text</p>
+          </div>
+
+          <div id="uploadBtn" onclick="button(this.id)" class="menuButton">
+            <p>Upload</p>
+          </div>
+          <div id="exportBtn" onclick="button(this.id)" class="menuButton">
+            <p>Export</p>
+          </div>
+
+          <div id="imagesBtn" onclick="button(this.id)" class="menuButton">
+            <p>Images</p>
+          </div>
+        </div>
+
+
+        <!-- /\/\/\/\/\ FILTERS /\/\/\/\/\ -->
+        <div id="filters" class="hidden">
+
+
+          <div class="menuText">
+            <p>Brightness: <span style="display:none;" id="brightnessOutput"></span>
+              <input oninput="input(this.id)" id="brightnessInput" class="menuInput"><input readOnly="true" id="brightnessInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="brightness" class="menuSlider">
+            <input id="brightnessSlider" oninput="input(this.id)" class="slider" type="range" min="0" max="800" value="100" step="1"><span id="brightnessReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+          <div class="menuText">
+            <p>Contrast: <span style="display:none;" id="contrastOutput"></span>
+              <input oninput="input(this.id)" id="contrastInput" class="menuInput"><input readOnly="true" id="contrastInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="contrast" class="menuSlider">
+            <input id="contrastSlider" oninput="input(this.id)" class="slider" type="range" min="0" max="800" value="100" step="1"><span id="contrastReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+          <div class="menuText">
+            <p>Hue: <span style="display:none;" id="hue-rotateOutput"></span>
+              <input oninput="input(this.id)" id="hue-rotateInput" class="menuInput"><input readOnly="true" id="hue-rotateInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="hue-rotate" class="menuSlider">
+            <input id="hue-rotateSlider" oninput="input(this.id)" class="slider" type="range" min="0" max="360" value="0" step="1"><span id="hue-rotateReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+          <div class="menuText">
+            <p>Saturation: <span style="display:none;" id="saturateOutput"></span>
+              <input oninput="input(this.id)" id="saturateInput" class="menuInput"><input readOnly="true" id="saturateInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="saturate" class="menuSlider">
+            <input id="saturateSlider" oninput="input(this.id)" class="slider" type="range" min="0" max="300" value="100" step="1"><span id="saturateReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+          <div class="menuText">
+            <p>Grayscale: <span style="display:none;" id="grayscaleOutput"></span>
+              <input oninput="input(this.id)" id="grayscaleInput" class="menuInput"><input readOnly="true" id="grayscaleInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="grayscale" class="menuSlider">
+            <input id="grayscaleSlider" oninput="input(this.id)" class="slider" type="range" min="0" max="100" value="0" step="1"><span id="grayscaleReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+          <div class="menuText">
+            <p>Sepia: <span style="display:none;" id="sepiaOutput"></span>
+              <input oninput="input(this.id)" id="sepiaInput" class="menuInput"><input readOnly="true" id="sepiaInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="sepia" class="menuSlider">
+            <input id="sepiaSlider" oninput="input(this.id)" class="slider" type="range" min="0" max="100" value="0" step="1"><span id="sepiaReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+
+
+          <div class="menuText">
+            <p>Opacity: <span style="display:none;" id="opacityOutput"></span>
+              <input oninput="input(this.id)" id="opacityInput" class="menuInput"><input readOnly="true" id="opacityInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="opacity" class="menuSlider">
+            <input id="opacitySlider" oninput="input(this.id)" class="slider" type="range" min="0" max="100" value="100" step="1"><span id="opacityReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+          <div class="menuText">
+            <p>Blur: <span style="display:none;" id="blurOutput"></span>
+              <input oninput="input(this.id)" id="blurInput" class="menuInput"><input readOnly="true" id="blurInputUnit" class="menuInputUnit">
+            </p>
+          </div>
+          <div id="blur" class="menuSlider">
+            <input id="blurSlider" oninput="input(this.id)" class="slider" type="range" min="0" max="10" value="0" step="1"><span id="blurReset" onclick="singleReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+          </div>
+
+          <!-- <div class="menuText">
+            <p>Invert:
+            </p>
+          </div> -->
+          <div id="invertSlider" onclick="input(this.id)" class="menuButton">
+            <p>Invert Colors</p>
+          </div>
+
+
+
+          <div id="back">
+            <div id="backBtn" onclick="button(this.id)" class="menuBottomButton oneThree">
+              <i class="material-icons">arrow_back</i>
+            </div>
+          </div>
+          <div onclick="resetFilters()" class="menuBottomButton one">
+            <!-- <p>Reset</p> -->
+            <i class="material-icons">restore</i> <!-- settings_backup_restore -->
+          </div>
+          <div onclick="shuffle()" class="menuBottomButton threeThree">
+            <i class="material-icons">shuffle</i>
+          </div>
+        </div>
+
+
+
+      <!-- /\/\/\/\/\ ROTATE /\/\/\/\/\ -->
+      <div id="rotate" class="hidden">
+
+        <div class="menuText">
+          <p>X:
+            <input oninput="rotate(this.id)" id="rotateXInput" class="menuInput" value="0"><input readOnly="true" class="menuInputUnit" value="&deg">
+          </p>
+        </div>
+        <div id="rotateX" class="menuSlider">
+          <input id="rotateXSlider" oninput="rotate(this.id)" class="slider" type="range" min="0" max="360" value="0" step="1"><span id="rotateXReset" onclick="singleRotateReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+        </div>
+
+        <div class="menuText">
+          <p>Y:
+            <input oninput="rotate(this.id)" id="rotateYInput" class="menuInput" value="0"><input readOnly="true" class="menuInputUnit" value="&deg">
+          </p>
+        </div>
+        <div id="rotateY" class="menuSlider">
+          <input id="rotateYSlider" oninput="rotate(this.id)" class="slider" type="range" min="0" max="360" value="0" step="1"><span id="rotateYReset" onclick="singleRotateReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+        </div>
+
+        <div class="menuText">
+          <p>Z:
+            <input oninput="rotate(this.id)" id="rotateZInput" class="menuInput" value="0"><input readOnly="true" class="menuInputUnit" value="&deg">
+          </p>
+        </div>
+        <div id="rotateZ" class="menuSlider">
+          <input id="rotateZSlider" oninput="rotate(this.id)" class="slider" type="range" min="0" max="360" value="0" step="1"><span id="rotateZReset" onclick="singleRotateReset(this.id)" class="menuRestoreSmall"><i class="material-icons">restore</i></span>
+        </div>
+
+
+        <div id="back">
+          <div id="backBtn" onclick="button(this.id)" class="menuBottomButton oneTwo">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+        <div onclick="resetRotate()" class="menuBottomButton twoTwo">
+          <i class="material-icons">restore</i> <!-- settings_backup_restore -->
+        </div>
+      </div>
+
+
+      <!-- /\/\/\/\/\ ZOOM /\/\/\/\/\ -->
+      <div id="zoom" class="hidden">
+
+
+        <div class="menuText">
+          <p>X:
+            <input oninput="zoom(this.id)" id="zoomXInput" class="menuInput" value="1"><!--input readOnly="true" class="menuInputUnit" value="&deg"-->
+          </p>
+        </div>
+        <div id="zoomX" class="menuSlider">
+          <input id="zoomXSlider" oninput="zoom(this.id)" class="slider" type="range" min="0" max="50" value="1" step="0.01">
+        </div>
+        <div class="menuText">
+          <p>Y:
+            <input oninput="zoom(this.id)" id="zoomYInput" class="menuInput" value="1"><!--input readOnly="true" class="menuInputUnit" value="&deg"-->
+          </p>
+        </div>
+        <div id="zoomY" class="menuSlider">
+          <input id="zoomYSlider" oninput="zoom(this.id)" class="slider" type="range" min="0" max="50" value="1" step="0.01">
+        </div>
+
+        <div class="menuText">
+          <p>Keep ratio:</p>
+        </div>
+        <div class="menuCheck">
+          <input id="zoomRatio" type="checkbox" checked>
+        </div>
+
+
+        <div id="back">
+          <div id="backBtn" onclick="button(this.id)" class="menuBottomButton oneTwo">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+        <div onclick="resetZoom()" class="menuBottomButton twoTwo">
+          <i class="material-icons">restore</i> <!-- settings_backup_restore -->
+        </div>
+      </div>
+
+
+      <!-- /\/\/\/\/\ TEXT /\/\/\/\/\ -->
+      <div id="text" class="hidden">
+
+        <div class="menuText">
+            <input id="textInput" class="menuTextInput" placeholder="Input text...">
+        </div>
+        <!-- <div id="scrollDiv"> -->
+
+        <div class="menuText">
+          <p>Red:
+            <input oninput="textInput(this.id)" id="textRedInput" class="menuInput" value="255">
+          </p>
+        </div>
+        <div id="textRed" class="menuSlider">
+          <input id="textRedSlider" oninput="text(this.id)" class="slider red" type="range" min="0" max="255" value="255" step="1">
+        </div>
+        <div class="menuText">
+          <p>Green:
+            <input oninput="textInput(this.id)" id="textGreenInput" class="menuInput" value="255">
+          </p>
+        </div>
+        <div id="textGreen" class="menuSlider">
+          <input id="textGreenSlider" oninput="text(this.id)" class="slider green" type="range" min="0" max="255" value="255" step="1">
+        </div>
+        <div class="menuText">
+          <p>Blue:
+            <input oninput="textInput(this.id)" id="textBlueInput" class="menuInput" value="255">
+          </p>
+        </div>
+        <div id="textBlue" class="menuSlider">
+          <input id="textBlueSlider" oninput="text(this.id)" class="slider blue" type="range" min="0" max="255" value="255" step="1">
+        </div>
+
+        <div class="menuText">
+          <p>Hex Code:</p>
+        </div>
+        <div class="menuText">
+            <input id="hexInput" oninput="textInput(this.id)" class="menuTextInput" value="#ffffff">
+        </div>
+
+        <div class="menuText">
+          <p>Opacity:
+            <input oninput="textInput(this.id)" id="textOpacityInput" class="menuInput" value="100"><input readOnly="true" class="menuInputUnit" value="%">
+          </p>
+        </div>
+        <div id="textOpacity" class="menuSlider">
+          <input id="textOpacitySlider" oninput="text(this.id)" class="slider" type="range" min="0" max="100" value="100" step="1">
+        </div>
+        <div class="menuText">
+          <p>Text Size:
+            <input oninput="textInput(this.id)" id="textSizeInput" class="menuInput" value="16"><input readOnly="true" class="menuInputUnit" value="px">
+          </p>
+        </div>
+        <div id="textSize" class="menuSlider">
+          <input id="textSizeSlider" oninput="text(this.id)" class="slider" type="range" min="0" max="100" value="16" step="1">
+        </div>
+
+        <div class="padding-left">
+          <label for="textBold">
+            <input oninput="text(this.id)" type="checkbox" id="textBold" class="hidden">
+            <i class="formats material-icons">format_bold</i>
+          </label>
+          <label for="textItalic">
+            <input oninput="text(this.id)" type="checkbox" id="textItalic" class="hidden">
+            <i class="formats material-icons">format_italic</i>
+          </label>
+          <label for="textUnderline">
+            <input oninput="text(this.id)" type="checkbox" id="textUnderline" class="hidden">
+            <i class="formats material-icons">format_underline</i>
+          </label>
+          <label for="textLineThrough">
+            <input oninput="text(this.id)" type="checkbox" id="textLineThrough" class="hidden">
+            <i class="formats material-icons">format_strikethrough</i>
+          </label>
+        </div>
+
+
+        <div class="menuText">
+          <p>Rotate:
+            <input oninput="textInput(this.id)" id="textRotateInput" class="menuInput" value="0"><input readOnly="true" class="menuInputUnit" value="&deg">
+          </p>
+        </div>
+        <div id="textRotate" class="menuSlider">
+          <input id="textRotateSlider" oninput="text(this.id)" class="slider" type="range" min="0" max="360" value="0" step="1">
+        </div>
+        <!-- <div class="menuText">
+          <p>Shadow:</p>
+        </div>
+        <div class="menuText">
+          <p>Background (WIP):</p>
+        </div>
+        <div class="menuText">
+          <p>Border (WIP):</p>
+          <!-padding, color, size, type...->
+        </div>
+        <div class="menuText">
+          <p>Padding (WIP):</p>
+        </div>
+        <div id="textPadding" class="menuSlider">
+          <input id="textPaddingSlider" oninput="text(this.id)" class="slider" type="range" min="0" max="100" value="0" step="1">
+        </div> -->
+
+
+        <div id="back">
+          <div id="backBtn" onclick="button(this.id)" class="menuBottomButton oneThree">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+        <div onclick="resetText()" class="menuBottomButton one">
+          <i class="material-icons">restore</i> <!-- settings_backup_restore -->
+        </div>
+        <div onclick="addText()" class="menuBottomButton threeThree">
+          <i class="material-icons">done</i>
+        </div>
+      </div>
+
+
+
+      <!-- /\/\/\/\/\ UPLOAD /\/\/\/\/\ -->
+      <div id="upload" class="hidden">
+
+        <div class="menuText">
+          <input id="urlInput" class="menuTextInput" placeholder="Input URL...">
+        </div>
+        <input class="hidden" type="file" accept="image/*" id="files" onchange="loadImage(event)">
+        <label for="files">
+          <div class="menuButton">
+            <p>Choose a file...</p>
+          </div>
+        </label>
+
+        <br><hr>
+
+        <div class="menuText">
+          <p>Previous images:</p>
+        </div>
+        <div class="menuImg">
+          <img onclick="loadImg(this.id)" class="menuImage" id="img0" src="https://stmed.net/sites/default/files/night-sky-wallpapers-30833-9599712.jpg" alt="Something went wrong!"></img>
+        </div>
+
+
+        <div id="back">
+          <div id="backBtn" onclick="button(this.id)" class="menuBottomButton oneTwo">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+        <div onclick="addImage()" class="menuBottomButton twoTwo">
+          <i class="material-icons">done</i>
+        </div>
+      </div>
+
+
+
+      <!-- /\/\/\/\/\ EXPORT /\/\/\/\/\ -->
+      <div id="export" class="hidden">
+
+        <div class="menuText">
+          <p>File name:</p>
+        </div>
+        <div class="menuText">
+          <input id="fileNameInput" class="menuTextInput" placeholder="Input file name...">
+        </div>
+
+        <!-- <div class="menuText">
+          <p>Other Settings: [...]</p>
+        </div> -->
+
+
+        <div id="back">
+          <div id="backBtn" onclick="button(this.id)" class="menuBottomButton oneTwo">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+        <div onclick="download()" class="menuBottomButton twoTwo">
+          <i class="material-icons">get_app</i>
+        </div>
+      </div>
+
+
+
+      <!-- /\/\/\/\/\ IMAGES /\/\/\/\/\ -->
+      <div id="images" class="hidden">
+
+        <!-- <div class="menuText">
+          <p>Some images:</p>
+        </div> -->
+        <div class="menuImg">
+          <!-- main -->
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="https://stmed.net/sites/default/files/night-sky-wallpapers-30833-9599712.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <!-- wide -->
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="images/line-background-dark-abstract.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <!-- ultra wide -->
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="https://vjloopsfarm.com/wp-content/uploads/2017/04/Wide-Squares-X2-Video-Mapping-__60fps_VJLoop_LIMEART_003.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <!-- small -->
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="https://images.pexels.com/photos/259707/pexels-photo-259707.jpeg?cs=srgb&dl=blume-draussen-flora-259707.jpg&fm=jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <!-- sad cat -->
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="https://www.catster.com/wp-content/uploads/2018/05/A-gray-cat-crying-looking-upset.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <!-- some other images -->
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="https://stmed.net/sites/default/files/night-sky-wallpapers-30833-9599712.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="https://wallpaperplay.com/walls/full/c/4/9/87852.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="images/ocean-sky-sunset-beach.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="images/red-forest-2.jpg" alt="Something went wrong!"></img>
+        </div>
+        <div class="menuImg">
+          <img onclick="loadImages(this.src)" class="menuImage" id="img0" src="https://stmed.net/sites/default/files/black-mountain-wallpapers-27777-1226025.jpg" alt="Something went wrong!"></img>
+        </div>
+
+        <div id="back">
+          <div id="backBtn" onclick="button(this.id)" class="menuBottomButton one">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+      </div>
+
+
+
+      <!-- /\/\/\/\/\ SETTINGS /\/\/\/\/\ -->
+      <div id="settings" class="hidden">
+
+        <div class="menuText">
+          <p>Local storage:</p>
+        </div>
+        <div class="menuCheck">
+          <!-- <p>Local storage:</p> -->
+          <input id="localCheck" type="checkbox">
+        </div>
+        <div class="menuText">
+          <p>Background Color:</p>
+        </div>
+        <div class="menuText">
+          <input oninput="backColor(this.value)" id="bgcInput" class="menuTextInput" placeholder="Input hex code..." value="#aba8ad">
+        </div>
+
+        <div id="back">
+          <div id="backBtn" onclick="button(this.id)" class="menuBottomButton oneThree">
+            <i class="material-icons">arrow_back</i>
+          </div>
+        </div>
+        <div onclick="resetSettings()" class="menuBottomButton one">
+          <i class="material-icons">restore</i> <!-- settings_backup_restore -->
+        </div>
+        <div id="aboutSet" onclick="button(this.id)" class="menuBottomButton threeThree">
+          <i class="material-icons">info_outline</i>
+        </div>
+      </div>
+
+
+      <!-- /\/\/\/\/\ ABOUT /\/\/\/\/\ -->
+      <div id="about" class="hidden">
+
+        <div class="menuText">
+          <h3>Hello there!</h3>
+          <br>
+          <p>This is a photo editor called <b>Photor</b>, created by<br> <i>Kristoffer Vassbø</i> in 2019.</p>
+          <br>
+          <p>Used for this project:</p>
+          <a target="_blank" href="https://github.com/tsayen/dom-to-image">dom-to-image.js</a>
+          <br><br>
+          <p style="font-size:80px;">😁</p> <!-- 💜 -->
+          <!-- <p>Made with ❤ by Kristoffer</p> -->
+        </div>
+
+
+        <div id="backBtn" onclick="button(this.id)" class="menuBottomButton one">
+          <i class="material-icons">arrow_back</i>
+        </div>
+      </div>
+
+
+    <!-- end of scroll div -->
+    </div>
+
+    <!-- /\/\/\/\/\ SETTINGS BUTTON (MAIN MENU FOOTER) /\/\/\/\/\ -->
+      <!-- <div id="settingsBtn" onclick="button(this.id)" class="menuButton"> -->
+        <!-- <p>Settings</p> -->
+        <div id="settingsBtn" onclick="button(this.id)" class="menuBottomButton one">
+          <i class="material-icons">settings</i>
+        </div>
+      <!-- </div> -->
+
+      <!-- /\/\/\/\/\ FOOTER (DISPLAY ALWAYS) /\/\/\/\/\ -->
+      <div class="menuFooter">
+        <div class="menuFooterC">
+          <p id="aboutSet" class="footerText" onclick="button(this.id)"><u>&copy Kristoffer Vassbø 2019</u></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /\/\/\/\/\ MAIN IMAGE /\/\/\/\/\ -->
+  <div id="image">
+      <img onload="onStart()" id="mainImage" alt="Could not find image!" class="mainImage" src="https://stmed.net/sites/default/files/night-sky-wallpapers-30833-9599712.jpg" />
+  </div>
+
+  <!-- /\/\/\/\/\ FAV BUTTON /\/\/\/\/\ -->
+  <div class="favButton1">
+    <button id="zoomOut" class="button" onclick="quickZoom(this.id)">
+      <!-- <p>Last opp -->
+      <i class="material-icons">remove</i>
+      <!--</p>-->
+    </button>
+  </div>
+  <div class="favButton2">
+    <button id="zoomIn" class="button" onclick="quickZoom(this.id)">
+      <!-- <p>Last opp -->
+      <i class="material-icons">add</i>
+      <!--</p>-->
+    </button>
+  </div>
+</body>
+</html>

@@ -1,0 +1,190 @@
+:root {
+
+}
+
+* {
+  margin: 0;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: black;
+}
+
+.hidden {
+  display: none;
+}
+
+
+#mainMenu {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 101;
+
+  transition: .2s opacity;
+}
+#mainMenu h1 {
+  font-size: 5em;
+  color: rgba(255, 255, 255, 0.8);
+  font-family: cursive;
+  margin-bottom: 50px;
+}
+.mainMenu {
+  display: flex;
+  flex-direction: column;
+}
+#mainMenu button {
+  background: none;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 3em;
+  padding: 10px 80px;
+  cursor: pointer;
+}
+#mainMenu button:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.blur {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  transform: translate(-50%, -50%);
+  /* pointer-events: none; */
+  /* backdrop-filter: blur(8px) brightness(0.6); */
+  backdrop-filter: brightness(0.4);
+  z-index: 100;
+
+  transition: .6s opacity;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+.fadeIn {
+  opacity: 1;
+}
+
+
+#pause, #reset {
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.6);
+
+  transition: .2s opacity;
+}
+#pause svg, #reset svg {
+  width: 60px;
+  height: 60px;
+  fill: rgba(255, 255, 255, 0.6);
+}
+#pause svg:hover, #reset svg:hover {
+  fill: rgba(255, 255, 255, 0.8);
+}
+
+#reset {
+  right: 70px;
+}
+
+
+
+/* canvas {
+  background: black;
+} */
+
+#neonBoard {
+  width: 100vw;
+  height: 100vh;
+  background: black;
+}
+
+
+#neon {
+  position: absolute;
+  top: 100px;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-left: 11px solid transparent;
+  border-right: 11px solid transparent;
+  border-bottom: 22px solid #00ff00;
+  filter: drop-shadow(0 0 10px #00ff00);
+  z-index: 5;
+}
+
+
+.message {
+  position: absolute;
+  pointer-events: none;
+  top: 100px;
+  left: 100px;
+  font-size: 20px;
+  color: gray;
+  font-family: cursive;
+}
+
+
+#exit {
+  position: absolute;
+  pointer-events: none;
+  width: 100px;
+  height: 100px;
+  background: white;
+  box-shadow: 0 0 9px 5px white;
+}
+
+
+
+.bar {
+  pointer-events: none;
+  border-radius: 10px;
+  z-index: 10;
+  transition: opacity .2s, box-shadow .2s;
+}
+
+
+.colorChanger {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.8s;
+}
+
+
+/* ------------------------ */
+
+#debug {
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  color: white;
+  font-weight: bold;
+  pointer-events: none;
+  font-family: monospace;
+}
+
+#grid div {
+  pointer-events: none;
+  background: rgba(255, 255, 255, 0.2);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#grid .v {
+  width: 100%;
+  width: 2000px;
+  height: 2px;
+}
+#grid .h {
+  width: 2px;
+  height: 100%;
+}

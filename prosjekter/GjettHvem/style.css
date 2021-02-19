@@ -1,0 +1,205 @@
+:root {
+  --main-color: #da742c;
+  /* --accent-color: #fff0e5; */
+  --accent-color: white;
+}
+
+* {
+  margin: 0;
+}
+
+
+body {
+  font-family: 'Segoe UI', 'Roboto', arial, sans-serif;
+}
+
+
+
+.hidden {
+  display: none;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Old versions of Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome, Opera and Firefox */
+}
+
+
+
+#title {
+  position: absolute;
+  left: 25%;
+  top: 10%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 40px;
+  z-index: 2;
+}
+
+
+#left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  width: 50vw;
+  height: 100%;
+  box-shadow: 2px 0px 4px rgba(0, 0, 0, 0.3);
+  background: var(--main-color);
+  z-index: 1;
+}
+
+#right {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  width: 50vw;
+  height: 100%;
+  background: var(--accent-color);
+}
+
+.center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, -50%);
+}
+
+
+
+#questions {
+  margin-left: 50%;
+  transform: translateX(-50%);
+  margin-top: 10px;
+
+  width: 80%;
+  border: 1.4px solid white;
+  color: white;
+  border-radius: 8px;
+  /* text-align: center; */
+
+  max-height: 50vh;
+  overflow-y: scroll;
+  font-weight: bold;
+}
+#questions .asked {
+  /* font-style: italic; */
+  font-weight: normal;
+}
+
+#questions div {
+  padding: 10px;
+  cursor: pointer;
+}
+#questions div:nth-child(odd) {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+#questions div:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+#questions div:nth-child(odd):hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+
+
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: none;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+
+
+
+
+#input {
+  margin-left: 50%;
+  transform: translateX(-50%);
+
+  outline: none;
+  padding: 10px;
+  width: 80%;
+  font-family: 'Segoe UI', 'Roboto', arial, sans-serif;
+  background: transparent;
+  color: white;
+  font-size: 18px;
+  border: 1.4px solid white;
+  border-radius: 10px;
+
+  transition: .18s;
+}
+#input::placeholder {
+  color: rgba(255, 255, 255, 0.48);
+}
+
+#input:focus {
+  /* padding: 9.4px; */
+  border: 1.4px solid #294c91;
+  /* border: 1.4px solid #4b66af; */
+}
+
+
+
+
+
+
+#question, #finish {
+  margin-left: 50%;
+  width: fit-content;
+  transform: translateX(-50%);
+  font-size: 20px;
+  /* margin-top: 10px; */
+  white-space: pre-wrap;
+}
+
+#answer {
+  margin-left: 50%;
+  width: max-content;
+  transform: translateX(-50%);
+  font-weight: bold;
+  font-size: 100px;
+}
+
+
+
+#again {
+  margin-left: 50%;
+  margin-top: 20px;
+  transform: translateX(-50%);
+  padding: 10px 20px;
+  border-radius: 6px;
+  background: var(--main-color);
+  outline: none;
+  color: white;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+  font-family: 'Segoe UI', 'Roboto', arial, sans-serif;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.4);
+}
+
+#again:hover {
+  opacity: 0.9;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+}
+#again:active {
+  box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.4);
+}

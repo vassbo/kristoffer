@@ -1,0 +1,39 @@
+.path{
+    fill: white;
+}
+
+
+.mapFrame {
+    width: 215px;
+    height: 215px;
+    position: relative;
+    display: inline-block;
+    -webkit-clip-path: circle(102px at center);
+    -moz-clip-path: circle(102px at center);
+    background-color: #CC9900;
+    opacity: 0.5;
+}
+
+.miniMap {
+    width: 208px;
+    height: 208px;
+    position: relative;
+    display: inline-block;
+    -webkit-clip-path: circle(98px at center);
+    -moz-clip-path: circle(98px at center);
+    fill: black;
+    background-color: black;
+
+
+}
+.miniMapDot {
+    content: " ";
+    background: red;
+    width: 14px;
+    height: 14px;
+    display: block;
+    position: absolute;
+    left: 50.5%;
+    top: 50.5%;
+    border-radius: 10px;
+}

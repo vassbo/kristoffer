@@ -1,0 +1,277 @@
+/* Created by SaddleSneeze */
+
+body {
+  background-color: #eee;
+  user-select: none;
+}
+
+#red {
+  background-color: red;
+}
+
+#green {
+  background-color: green;
+}
+
+#blue {
+  background-color: blue;
+}
+
+#textdiv {
+  display: none;
+}
+
+#arrows {
+  display: none;
+}
+
+.arrows {
+  color: #fff;
+}
+
+.padding-left {
+  padding-left: 20px;
+}
+
+/* favButtons */
+.addButton {
+  bottom: 15px;
+  padding: 8px 19px;
+  position: fixed;
+  right: 4px;
+  z-index: 1;
+}
+
+.rotateBack {
+  -webkit-animation: rotateBack 0.4s;
+  -moz-animation: rotateBack 0.4s;
+  -o-animation: rotateBack 0.4s;
+  animation: rotateBack 0.4s;
+}
+
+@keyframes rotateBack {
+  from {
+    transform: rotate(-45deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.rotate {
+  transform: rotate(-45deg);
+  -webkit-animation: rotate 0.5s;
+  -moz-animation: rotate 0.5s;
+  -o-animation: rotate 0.5s;
+  animation: rotate 0.5s;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(-45deg);
+  }
+}
+
+.txtFavButton {
+  bottom: 84px;
+  padding: 8px 19px;
+  position: fixed;
+  right: 12px;
+  z-index: 1;
+  animation: txtmove 0.2s;
+}
+
+@keyframes txtmove {
+  from {
+    bottom: 15px;
+  }
+
+  to {
+    bottom: 84px;
+  }
+}
+
+.FavButtonNone {
+  display: none;
+}
+
+.imgFavButton {
+  bottom: 130px;
+  padding: 8px 19px;
+  position: fixed;
+  right: 12px;
+  z-index: 1;
+  animation: imgmove 0.2s;
+}
+
+@keyframes imgmove {
+  from {
+    bottom: 15px;
+  }
+
+  to {
+    bottom: 130px;
+  }
+}
+
+.downloadFavButton {
+  bottom: 176px;
+  padding: 8px 19px;
+  position: fixed;
+  right: 12px;
+  z-index: 1;
+  animation: downlmove 0.2s;
+}
+
+@keyframes downlmove {
+  from {
+    bottom: 15px;
+  }
+
+  to {
+    bottom: 176px;
+  }
+}
+
+.infoFavButton {
+  bottom: 222px;
+  padding: 8px 19px;
+  position: fixed;
+  right: 12px;
+  z-index: 1;
+  animation: infomove 0.2s;
+}
+
+@keyframes infomove {
+  from {
+    bottom: 15px;
+  }
+
+  to {
+    bottom: 222px;
+  }
+}
+
+.padding {
+  padding: 4px 25px;
+}
+
+.button {
+  padding: 4px 25px;
+  margin-right: 300px;
+}
+
+.portrait {
+  width: 96%;
+  height: auto;
+  margin-bottom: 10px;
+  /*border: 4px solid white;*/
+  margin-top: 10px;
+  border-radius: 2px;
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
+.select {
+  height: 50px;
+  margin-bottom: 4px;
+  cursor: pointer;
+  box-shadow: 0 2px 2.5px 0 rgba(0, 0, 0, .14), 0 0.5px 5px 0 rgba(0, 0, 0, .12), 0 1px 2px -0.5px rgba(0, 0, 0, .2);
+}
+
+.select:hover {
+  /*height: 52px;
+    margin-bottom: 2px;*/
+  box-shadow: 0 4px 5px 0 rgba(0, 0, 0, .14), 0 1px 10px 0 rgba(0, 0, 0, .12), 0 2px 4px -1px rgba(0, 0, 0, .2);
+}
+
+h5 {
+  float: left;
+}
+
+.value {
+  float: right;
+}
+
+
+.filter1 {
+  float: left;
+  width: 50%;
+}
+
+.filter2 {
+  float: right;
+  width: 50%;
+}
+
+/* @media only screen and (max-width:800px) {
+  For tablets:
+  .filter1 {
+    float: left;
+    width: 50%;
+  }
+
+  .filter2 {
+    float: right;
+    width: 50%;
+  }
+
+} */
+@media only screen and (max-width:480px) {
+  /* For mobile phones: */
+  .filter1, .filter2 {
+    width: 100%;
+  }
+}
+
+/* More colums */
+/* @media only screen and (min-width:900px) {
+  .filter1, .filter2 {
+    width: 35%;
+  }
+} */
+
+
+
+
+
+
+#files {
+  display: none;
+}
+
+#textinputdiv {
+  margin-left: 20%;
+}
+
+/* Container holding the image and the text */
+.textOnImage {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+/* Centered text */
+#centeredText {
+  display: none;
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  border: 1px dashed white;
+  padding: 4px 8px;
+  /*top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);*/
+}
+
+.note {
+  color: #a94442;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  padding: 15px;
+  border-radius: 2px;
+}

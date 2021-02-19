@@ -1,0 +1,103 @@
+:root {
+  --white: white;
+  --background: whitesmoke;
+  --main-color: #499ce2;
+  --main-color-btn: #3e8fd2;
+  --main-color-btn--selected: #3dd498;
+  /* --main-color-btn--selected: #3286cc; */
+  --main-color-btn--hover: #4199e4;
+  --box-shadow: 1px 0px 3px 0px rgba(0, 0, 0, 0.5);
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+  margin: 0;
+}
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+html {
+  box-sizing: border-box;
+  background: var(--background);
+  font-family: sans-serif;
+  font-family: 'Segoe UI', 'Roboto', arial, sans-serif;
+}
+
+.hidden {
+  display: none;
+}
+
+
+canvas {
+  background: var(--white);
+}
+
+
+#side-menu {
+  position: absolute;
+  width: 68px;
+  height: 100vh;
+  background: var(--main-color);
+  box-shadow: var(--box-shadow);
+  z-index: 999;
+}
+
+.fas {
+  font-size: 30px;
+}
+
+#side-menu .tool {
+  width: 100%;
+  padding: 18px;
+  background: var(--main-color-btn);
+  color: var(--white);
+  cursor: pointer;
+  margin: 2px 0;
+}
+#side-menu .tool.bottom {
+  position: absolute;
+  bottom: 0;
+}
+#side-menu .tool.selected {
+  background: var(--main-color-btn--selected) !important;
+}
+#side-menu .tool:hover {
+  background: var(--main-color-btn--hover);
+}
+/* #side-menu .tool:active {
+  background: var(--main-color-btn--hover);
+} */
+
+
+#options-menu {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 20px;
+  border-radius: 5px;
+  padding: 20px;
+  color: var(--white);
+  background: var(--main-color);
+  box-shadow: var(--box-shadow);
+  z-index: 999;
+}
+#optionName {
+  font-weight: bold;
+  margin-bottom: 6px;
+}
+
+
+
+#paint-app {
+  /* margin-left: auto;
+  margin-right: auto;
+  width: 500px; */
+  margin-left: 68px;
+}
+
+/* For any shape tools that need a live preview */
+.placeholder {
+  position:absolute;
+  z-index: 998;
+}
