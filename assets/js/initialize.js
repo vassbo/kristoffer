@@ -20,10 +20,10 @@ function loadTracks(more) {
       seperator = true;
       elem.innerHTML = `<span title='Vis flere' class="play" onclick="showMoreMusic(this);" tabindex="0"><span class="cover-preview"></span><span class="material-icons" style="opacity: 1;color: var(--primary);">more_horiz</span></span>`;
     } else elem.innerHTML = `<span title='Spill av "${name}"' class="play" onclick="playTrack('${name}', this);" tabindex="0">
-      <img src="./assets/covers/${name}.jpg" alt="Cover for ${name}" class="cover-preview">
+      <img src="./assets/covers/resized/${name}.jpg" alt="Cover for ${name}" class="cover-preview">
       <span class="material-icons">play_arrow</span><span class="info">${track.duration}</span>
     </span>
-    <span><h4>${checkName(name)}</h4><p>${getDate(track.uploaded)}</p></span>`;
+    <span><span>${checkName(name)}</span><p>${getDate(track.uploaded)}</p></span>`;
 
     if (!more || seperator && name !== 'SEPERATOR') document.querySelector('.tracks').appendChild(elem);
     if (seperator && !more) break;
@@ -61,6 +61,7 @@ document.getElementById('age').innerText = Math.abs(new Date(Date.now() - new Da
   elem.addEventListener('click', function() {
     this.classList.toggle('active');
     this.nextElementSibling.classList.toggle('hidden');
+    document.activeElement.blur();
   });
 });
 
@@ -83,6 +84,6 @@ const skills = {
 let html = '';
 Object.keys(skills).forEach(skill => {
   html += `<span class="projectsItem"><h5>${skill}</h5>
-    <nav class="slider" style="margin: 0;"><span class="base" style="width: 400px;"><span class="progressBar" style="width: ${skills[skill]}%;"></span></span></nav></span>`;
+    <nav class="slider" style="margin: 0;"><span class="base"><span class="progressBar" style="width: ${skills[skill]}%;"></span></span></nav></span>`;
 });
 document.getElementById('skills').innerHTML = html;

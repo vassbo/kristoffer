@@ -1,6 +1,0 @@
-- music file to mp3: https://online-audio-converter.com/
-- move and rename music file
-- minimize thumbnail: https://compressjpeg.com/
-- move and rename thumbnail to trackname
-- update "script.js" (https://www.youtube.com/channel/UCTM1m_UbhCWzLnD0SSTsLVw/videos)
-- commit [3]: 🎵 Added new track: "trackname"!

@@ -4,7 +4,8 @@
     /* --primary: #d1831d; */
     /* --primary: #38d11d; */
     /* --primary: #d11da4; */
-    --primary--hover: #346cac;
+    /* --primary--hover: #346cac; */
+    --primary--hover: #1d4d80;
     --header-height: 100px;
 
     --text: #f5f5f5;
@@ -73,6 +74,7 @@ header nav a {
     text-transform: uppercase;
     font-size: 0.8em;
     text-decoration: none;
+    white-space: nowrap;
 }
 header nav a:hover, header nav a:focus {
     background-color: var(--transparent--10);
@@ -88,23 +90,73 @@ header nav a.active {
 
 
 footer {
-    height: 400px;
-    padding: 20px 20vw;
-    display: flex;
     border-top: 10px solid var(--primary);
 }
-footer nav {
+footer .footer {
+    padding: 100px 20vw;
+    display: flex;
+}
+footer .footer nav {
     width: 50%;
     display: flex;
     align-items: center;
     align-self: center;
     justify-content: center;
 }
-footer nav div {
-    width: 60%;
+footer .footer nav div {
+    width: 70%;
     display: flex;
     flex-direction: column;
+    /* align-items: center; */
+}
+footer .footer span {
+    display: flex;
     align-items: center;
+}
+
+footer .footer label {
+    color: var(--primary);
+    font-size: 0.8em;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+footer .footer .material-icons {
+    margin-right: 10px;
+    user-select: none;
+}
+
+footer .social {
+    /* align-items: center; */
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+footer .social a {
+    text-decoration: none;
+}
+footer .fa {
+    height: 40px;
+    width: 40px;
+    font-size: 1.2em;
+    padding: 10px;
+    background-color: rgb(255 255 255 / 5%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer .copy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9em;
+    padding: 0 20vw;
+    width: 100%;
+    background-color: var(--transparent--5);
+}
+footer .copy .material-icons {
+    border-radius: 0;
+    padding: 10px;
 }
 
 
@@ -127,10 +179,15 @@ input:focus, textarea:focus {
 }
 
 button {
-    border-radius: 2px;
-    cursor: pointer;
-    background-color: var(--primary);
+    /* background-color: var(--primary); */
+    /* contrast */
+    /* background-color: #5d99db;
+    color: black; */
+    background-color: #225893;
+    
     color: #f5f5f5;
+    cursor: pointer;
+    border-radius: 2px;
     text-transform: uppercase;
     font-weight: bold;
     letter-spacing: .8px;
@@ -197,7 +254,7 @@ section .title {
 
 
 
-.material-icons:not(.tracks .material-icons), .fa {
+.material-icons.hover, .fa {
     padding: 6px;
     border-radius: 2px;
     cursor: pointer;
@@ -207,10 +264,10 @@ section .title {
 .material-icons.active, .fa.active {
     color: var(--primary);
 }
-.material-icons:not(.tracks .material-icons):hover, .fa:hover, a:focus > .fa {
+.material-icons.hover:hover, .fa:hover, a:focus > .fa {
     background-color: var(--transparent--10);
 }
-.material-icons:not(.tracks .material-icons):active, .fa:active {
+.material-icons.hover:active, .fa:active {
     background-color: var(--transparent--20);
 }
 
@@ -244,7 +301,7 @@ section .title {
     flex-wrap: wrap;
 }
 .tracks div {
-    width: 25%;
+    width: calc(100% / 4);
     padding: 16px;
 }
 .tracks span {
@@ -304,15 +361,11 @@ section .title {
     color: white;
 }
 
-.tracks h4 {
-    font-weight: normal;
-}
-
 .tracks p {
-    opacity: 0.8;
     color: var(--primary);
     font-size: 0.7em;
     align-self: center;
+    white-space: nowrap;
 }
 
 
@@ -369,6 +422,9 @@ section .title {
     position: relative;
     display: flex;
     align-items: center;
+}
+#prosjekter .slider .base, #skills .slider .base {
+    width: 400px;
 }
 .slider .progressBar {
     background-color: var(--primary);
@@ -478,8 +534,9 @@ section .title {
     background-color: var(--transparent--5);
 }
 
-h5 {
+.projects p {
     font-size: 0.9em;
+    font-weight: bold;
 }
 
 
@@ -499,7 +556,17 @@ button.outline:not(.active):hover, button.outline:not(.active):active, button.ou
 
 /* ABOUT */
 
-h6 {
+.quote {
+    display: flex;
+    color: var(--primary);
+    border-left: 2px solid var(--primary);
+    padding-left: 20px;
+    margin: 20px 0;
+    margin-left: 20px;
+}
+
+.subtitle {
+    font-weight: bold;
     padding: 14px 0;
     font-size: 0.8em;
 }
@@ -530,11 +597,116 @@ h6 {
     max-width: calc(50% - 30px);
 }
 
-#om .table h6 {
+#om .table .subtitle {
     color: var(--primary);
     margin-right: 30px;
     padding-right: 30px;
     border-right: 2px solid var(--primary);
     width: 50%;
     text-align: right;
+}
+
+
+
+/* MEDIA */
+
+@media only screen and (max-width: 1150px) {
+    .tracks div {
+        width: calc(100% / 3);
+    }
+    #prosjekter .slider .base {
+        width: 250px;
+    }
+}
+@media only screen and (max-width: 900px) {
+    .tracks div {
+        width: calc(100% / 2);
+    }
+    #prosjekter .slider .base, #skills .slider .base {
+        width: 200px;
+    }
+    button.outline {
+        width: 80% !important;
+    }
+
+    h1 {
+        font-size: 3em;
+    }
+    
+    footer .footer {
+        padding: 100px 10vw;
+        flex-direction: column;
+    }
+    footer .footer nav {
+        width: 100%;
+    }
+    footer .social {
+        margin-top: 20px;
+    }
+    footer .copy {
+        padding: 0 10vw;
+    }
+
+    section {
+        padding: 100px 10vw;
+    }
+
+    header nav h3 {
+        padding-top: 30px;
+        padding-bottom: 10px;
+    }
+    header, #musicPlayer {
+        height: auto;
+        /* width: auto; */
+    }
+    header div {
+        flex-direction: column;
+    }
+    #musicPlayer div {
+        padding: 10px 15vw;
+        flex-direction: column-reverse;
+    }
+    #musicPlayer div > span:first-child {
+        display: none;
+    }
+    #musicPlayer .slider .base {
+        width: 100px;
+    }
+
+    header nav a {
+        padding: 20px 10px;
+    }
+    header div nav > a:nth-child(4) {
+        display: none;
+    }
+}
+@media only screen and (max-width: 500px) {
+    .tracks div {
+        width: 100%;
+    }
+    #prosjekter .slider .base, #skills .slider .base {
+        width: 80px;
+    }
+    button.outline {
+        width: 100% !important;
+    }
+
+    footer .footer nav div {
+        width: 100%;
+    }
+    footer .fa {
+        font-size: 0.9em;
+        height: 30px;
+        width: 30px;
+    }
+
+    #om .table .subtitle {
+        margin-right: 10px;
+        padding-right: 10px;
+    }
+}
+@media only screen and (max-width: 400px) {
+    /* #prosjekter .slider .base, #skills .slider .base {
+        width: 50px;
+    } */
 }

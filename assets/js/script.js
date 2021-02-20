@@ -17,10 +17,10 @@ function loadProject(object, elem) {
   Object.keys(object).forEach(name => {
     let obj = object[name];
     let item = `<span onclick="openProject('${name}');" style="cursor: pointer;" tabindex="0">${name}</span>`;
-    if (obj.url) item = `<a href="${obj.url}" target="_blank">${name}</a>`;
+    if (obj.url) item = `<a href="${obj.url}" target="_blank" rel="noopener">${name}</a>`;
 
-    var newDiv = `<span class="projectsItem"><h5>${item}</h5>
-    <nav class="slider" title="${obj.completeness}% fullført" style="margin: 0;"><span class="base" style="width: 400px;"><span class="progressBar" style="width: ${obj.completeness}%;"></span></span></nav></span>`;
+    var newDiv = `<span class="projectsItem"><p>${item}</p>
+    <nav class="slider" title="${obj.completeness}% fullført" style="margin: 0;"><span class="base"><span class="progressBar" style="width: ${obj.completeness}%;"></span></span></nav></span>`;
 
     if (name === 'SEPERATOR') {
       seperator = true;

@@ -11,7 +11,8 @@ function playTrack(name, card) {
 
     // set music player values
     playerDiv.classList.remove('hidden');
-    playerDiv.querySelector('img').src = './assets/covers/' + name + '.jpg'; // TODO: small image version
+    document.querySelector('.musicPlayerHeight').classList.remove('hidden');
+    playerDiv.querySelector('img').src = './assets/covers/resized/' + name + '.jpg'; // TODO: small image version
     playerDiv.querySelector('h4').innerText = name;
     playerDiv.querySelector('.play').innerHTML = 'pause';
     updateSlider(0);
@@ -316,6 +317,7 @@ document.addEventListener('keydown', e => {
     if (e.code === 'Space' || e.key === 'k') player.pause();
     else if (e.key === 'Escape') {
       playerDiv.classList.add('hidden');
+      document.querySelector('.musicPlayerHeight').classList.add('hidden');
       clearInterval(interval);
       audio.pause();
       audio = undefined;
