@@ -17,7 +17,7 @@ self.addEventListener('install', event => {
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html')))
+  if (event.request.mode === 'navigate')
     event.respondWith(fetch(event.request.url).catch(e => caches.match('frakoblet.html')));
   else
     // Respond with everything else if we can
