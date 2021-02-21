@@ -6,7 +6,7 @@ if (h < 10) titles.push('God morgen!');
 else if (h < 18) titles.push('God dag!');
 else titles.push('God kveld!');
 
-document.querySelector('.top').querySelector('h1').innerHTML = titles[Math.floor(Math.random() * (titles.length - 1))];
+document.querySelector('.top').querySelector('h1').innerHTML = titles[Math.floor(Math.random() * titles.length)];
 
 // create track cards
 loadTracks();
