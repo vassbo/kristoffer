@@ -52,11 +52,9 @@ function sortProjects(elem) {
 function openProject(name) {
   document.getElementById('projectPopup').classList.remove('hidden');
   document.getElementById('projectPopup').querySelector('h3').innerText = name;
-  if (projects[name].description !== undefined) document.getElementById('projectPopup').querySelector('p').innerText = projects[name].description;
+  document.getElementById('projectPopup').querySelector('p').innerText = projects[name].description || '';
   document.getElementById('projectPopup').querySelector('iframe').src = 'prosjekter/' + name + '/index.html';
   document.getElementById('projectPopup').querySelector('iframe').focus();
-  // create iframe
-  // set name / description
 }
 function closePopup() {
   document.getElementById('projectPopup').classList.add('hidden');
