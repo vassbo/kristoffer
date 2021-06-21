@@ -274,6 +274,9 @@ section .title {
 .fa-facebook:hover, a:focus > .fa-facebook {
     color: #4267B2;
 }
+.fa-spotify:hover, a:focus > .fa-spotify {
+    color: #1DB954;
+}
 .fa-soundcloud:hover, a:focus > .fa-soundcloud {
     color: #FE5000;
 }

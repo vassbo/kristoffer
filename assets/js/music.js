@@ -1,6 +1,6 @@
 var audio, interval;
 var queue = [], queuePos = 0;
-var repeat = true, mousedown = false, fullscreen = false;
+var repeat = true, mousedown = false, mouseOnSlider = false, fullscreen = false;
 let playerDiv = document.getElementById('musicPlayer');
 
 function playTrack(name, card) {
@@ -51,6 +51,7 @@ function playTrack(name, card) {
       audio.addEventListener('ended', player.ended);
       audio.addEventListener('canplaythrough', loader);
     } else audio.src = src;
+    // audio.addEventListener('error', () => { console.error('Kunne ikke laste inn lydfil!'); loader(); });
     audio.play();
     mediaSession(name);
 
@@ -59,7 +60,7 @@ function playTrack(name, card) {
       if (audio !== undefined) {
         if (playerDiv.querySelector('.duration').innerText !== getTime(audio.duration))
           playerDiv.querySelector('.duration').innerText = getTime(audio.duration);
-        if (mousedown === false && playerDiv.querySelector('.play').innerHTML === 'pause') {
+        if (mouseOnSlider === false && playerDiv.querySelector('.play').innerHTML === 'pause') {
           playerDiv.querySelector('.progress').innerText = getTime(audio.currentTime);
           updateSlider(audio.currentTime / audio.duration * 100);
         }
@@ -194,22 +195,25 @@ function updateSlider(value) {
 
 var currentTime = 0;
 function moveSlider(e) {
-  let slider = playerDiv.querySelector('.base');
-  let width = slider.offsetWidth;
-  let left = e.clientX - slider.offsetLeft;
-  let percentage = left / width;
-
-  if (left > 0 && left < width) {
-    updateSlider(percentage * 100);
-  } else if (left < width) {
-    updateSlider(0);
-    percentage = 0;
-  } else {
-    updateSlider(100);
-    percentage = 1;
-  }
-  currentTime = audio.duration * percentage;
-  playerDiv.querySelector('.progress').innerText = getTime(currentTime);
+  if (e.target.closest('.slider') !== null) {
+    mouseOnSlider = true;
+    let slider = playerDiv.querySelector('.base');
+    let width = slider.offsetWidth;
+    let left = e.clientX - slider.offsetLeft;
+    let percentage = left / width;
+  
+    if (left > 0 && left < width) {
+      updateSlider(percentage * 100);
+    } else if (left < width) {
+      updateSlider(0);
+      percentage = 0;
+    } else {
+      updateSlider(100);
+      percentage = 1;
+    }
+    currentTime = audio.duration * percentage;
+    playerDiv.querySelector('.progress').innerText = getTime(currentTime);
+  } else mouseOnSlider = false;
 }
 
 
@@ -219,11 +223,12 @@ function moveSlider(e) {
 playerDiv.querySelector('.slider').addEventListener('mousedown', (e) => { mousedown = true; moveSlider(e); });
 document.addEventListener('mousemove', (e) => { if (mousedown) moveSlider(e); });
 document.addEventListener('mouseup', () => {
-  if (mousedown) {
+  if (mouseOnSlider) {
     loader(true);
     audio.currentTime = currentTime;
-    mousedown = false;
+    mouseOnSlider = false;
   }
+  mousedown = false;
 });
 
 

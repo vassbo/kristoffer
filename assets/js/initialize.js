@@ -1,5 +1,5 @@
 // random greeting
-const titles = ['Heisann.', 'Halloen.', 'Velkommen!', 'Hei.'];
+const titles = ['Velkommen!', 'Hei.', 'Heisann.', 'Hallo.', 'Halloen.', ':)', ':D'];
 
 var h = new Date().getHours();
 if (h < 10) titles.push('God morgen!');
