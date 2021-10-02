@@ -9,25 +9,26 @@ else titles.push('God kveld!');
 document.querySelector('.top').querySelector('h1').innerHTML = titles[Math.floor(Math.random() * titles.length)];
 
 // create track cards
-loadTracks();
-function loadTracks(more) {
+(function loadTracks() {
   let seperator = false;
+  console.log(tracks);
   for (let name of Object.keys(tracks)) {
     let track = tracks[name];
     let elem = document.createElement('div');
+    if (seperator) elem.classList.add('hidden');
 
     if (name === 'SEPERATOR') {
       seperator = true;
       elem.innerHTML = `<span title='Vis flere' class="play" onclick="showMoreMusic(this);" tabindex="0"><span class="cover-preview"></span><span class="material-icons" style="opacity: 1;color: var(--primary);">more_horiz</span></span>`;
-    } else elem.innerHTML = `<span title='Spill av "${name}"' class="play" onclick="playTrack('${name}', this);" tabindex="0">
+    } else elem.innerHTML = `<span id="${name}" title='Spill av "${name}"' class="play" onclick="playTrack('${name}', this);" tabindex="0">
       <img src="./assets/covers/resized/${name}.jpg" alt="Cover for ${name}" class="cover-preview">
       <span class="material-icons">play_arrow</span><span class="info">${track.duration}</span>
     </span>
     <span><span>${checkName(name)}</span><p>${getDate(track.uploaded)}</p></span>`;
 
-    if (!more || seperator && name !== 'SEPERATOR') document.querySelector('.tracks').appendChild(elem);
-    if (seperator && !more) break;
+    document.querySelector('.tracks').appendChild(elem);
   };
+  delete tracks.SEPERATOR;
 
   function checkName(name) {
     let remix = name.indexOf(' (Vizzber Remix)');
@@ -39,7 +40,7 @@ function loadTracks(more) {
     let month = ['jan.', 'feb.', 'mars', 'apr.', 'mai', 'juni', 'juli', 'aug.', 'sep.', 'okt.', 'nov.', 'des.'][Number(date[1]) - 1];
     return date[0] + '. ' + month + ' 20' + date[2];
   }
-}
+})()
 
 
 // scroll -> header

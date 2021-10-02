@@ -5,8 +5,6 @@ let playerDiv = document.getElementById('musicPlayer');
 
 function playTrack(name, card) {
   if (card === undefined || !card.classList.contains('playing')) {
-    if (name === 'Move') alert('Advarsel! Ustemte vokaler'); //////////////////////
-
     if (fullscreen) document.getElementById('cover').src = './assets/covers/' + name + '.jpg';
 
     // set music player values
@@ -27,7 +25,9 @@ function playTrack(name, card) {
     if (card === undefined) {
       Object.keys(tracks).forEach((trackName, i) => {
         if (trackName === queue[queuePos]) {
-          card = document.getElementById('musikk').querySelector('.tracks').querySelectorAll('div')[i].querySelector('span');
+          console.log(i);
+          // card = document.getElementById('musikk').querySelector('.tracks').querySelectorAll('div')[i].querySelector('span');
+          card = document.getElementById(trackName);
         }
       });
     }
@@ -183,7 +183,7 @@ function shuffle(a) {
 
 function showMoreMusic(elem) {
   elem.closest('div').remove();
-  loadTracks(true);
+  document.querySelector('.tracks').querySelectorAll('.hidden').forEach(track => track.classList.remove('hidden'));
 }
 
 

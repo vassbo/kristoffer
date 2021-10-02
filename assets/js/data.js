@@ -27,6 +27,7 @@ var projects = {
 };
 
 var tracks = {
+  'Superhero': {album: 'Dreams', uploaded: '02/10/21', duration: '2:20'},
   'Sunset': {album: 'Dreams', uploaded: '21/06/21', duration: '4:10'},
   'Shattered': {album: 'Dreams', uploaded: '02/04/21', duration: '3:28'},
   'Aurora': {album: 'Dreams', uploaded: '19/12/20', duration: '3:18'},
