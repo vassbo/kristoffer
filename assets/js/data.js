@@ -1,6 +1,6 @@
 const projects = {
   "Logic Simulator": { completeness: "80", url: "https://logics.netlify.app" },
-  Adventskalender: { completeness: "100", url: "https://julekalender.netlify.app" },
+  Adventskalender: { completeness: "100", url: "/advent" }, // "https://julekalender.netlify.app" | "https://advents.netlify.app"
   Spill: { completeness: "20", url: "https://spill.netlify.app" },
   Photor: { completeness: "95" },
   // 'BlackOceans': {completeness: '10', url: 'comming'},
