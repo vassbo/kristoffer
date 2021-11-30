@@ -67,7 +67,7 @@ function openDoor(day) {
     } else {
       // txt = advent[year][day].verse[0] + ' (' + advent[year][day].verse[1] + ')';
       // if (document.getElementById('day').querySelector('.verse').innerHTML !== txt) {
-      if (player === undefined || player.getVideoData().video_id !== id) {
+      if (player === undefined || (player.getVideoData() !== undefined && player.getVideoData().video_id !== id)) {
         i = 0
         txt = advent[year][day].verse[0] + " — " + advent[year][day].verse[1] + ""
         document.getElementById("day").querySelector(".verse").innerHTML = ""
@@ -76,7 +76,7 @@ function openDoor(day) {
         timeout2 = setTimeout(() => {
           verseType()
         }, 3000)
-      } else if (player.getVideoData().video_id === id) verseType()
+      } else if (player.getVideoData() !== undefined && player.getVideoData().video_id === id) verseType()
     }
 
     document.getElementById("back").classList.remove("hidden")
@@ -85,8 +85,8 @@ function openDoor(day) {
     if (advent[year][day].stop !== undefined) stop = advent[year][day].stop
     if (advent[year][day].captions !== undefined) captions = true
     else captions = false
-    if (tag == undefined) createEmbed()
-    else if (player.getVideoData()["video_id"] !== id) player.loadVideoById(id)
+    if (tag === undefined) createEmbed()
+    else if (player.getVideoData() === undefined || player.getVideoData().video_id !== id) player.loadVideoById(id)
     else player.playVideo()
   } // else console.log('Bra forsøk!');
 }

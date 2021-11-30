@@ -298,7 +298,7 @@ const advent = {
     {
       title: "Hark! The Herald Angels Sing",
       song: "SviZ9F2tX0s",
-      stop: 204,
+      stop: 203,
       verse: ["Igjen talte Jesus til dem og sa: Jeg er verdens lys! Den som følger meg, skal ikke vandre i mørket, men ha livets lys.", "Johannes 8:12"],
     },
     // {
