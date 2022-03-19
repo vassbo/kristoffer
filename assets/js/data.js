@@ -1,4 +1,5 @@
 const projects = {
+  FreeShow: { completeness: "75", url: "https://freeshow.app" },
   "Logic Simulator": { completeness: "80", url: "https://logics.netlify.app" },
   Adventskalender: { completeness: "100", url: "/advent" }, // "https://julekalender.netlify.app" | "https://advents.netlify.app"
   Spill: { completeness: "20", url: "https://spill.netlify.app" },

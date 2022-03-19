@@ -11,7 +11,6 @@ document.querySelector(".top").querySelector("h1").innerHTML = titles[Math.floor
 // create track cards
 ;(function loadTracks() {
   let seperator = false
-  console.log(tracks)
   for (let name of Object.keys(tracks)) {
     let track = tracks[name]
     let elem = document.createElement("div")
