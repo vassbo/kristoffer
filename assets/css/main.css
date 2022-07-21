@@ -34,11 +34,12 @@ body {
 
 a {
   color: var(--text);
+  transition: 0.2s color;
 }
 a:hover,
 a:active,
 a:focus {
-  opacity: 0.7;
+  color: var(--primary);
 }
 
 .hidden {
@@ -542,6 +543,17 @@ a:focus > .fa-twitter {
   border: 2px solid var(--primary);
   width: 100%;
   height: calc(100% - 45px);
+}
+
+.skillsItem {
+  display: flex;
+  flex-wrap: wrap;
+  /* text-align: center; */
+  justify-content: center;
+  padding: 5px 0;
+}
+.skillsItem p {
+  width: 33.33%;
 }
 
 .projectsItem {

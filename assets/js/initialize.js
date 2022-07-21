@@ -63,9 +63,10 @@ document.getElementById("age").innerText = Math.abs(new Date(Date.now() - new Da
   })
 })
 
-let html = ""
-Object.keys(skills).forEach((skill) => {
-  html += `<span class="projectsItem"><h5>${skill}</h5>
-    <nav class="slider" style="margin: 0;"><span class="base"><span class="progressBar" style="width: ${skills[skill]}%;"></span></span></nav></span>`
+// skills
+let html = "<span class='skillsItem'>"
+skills.forEach((skill) => {
+  html += `<p>${skill}</p>`
 })
+html += "</span>"
 document.getElementById("skills").innerHTML = html

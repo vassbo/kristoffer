@@ -83,20 +83,4 @@ const tracks = {
   // 'Min sang 1': {album: 'GarageBand', uploaded: 'Never', duration: '0:35'},
 }
 
-const skills = {
-  HTML: 99,
-  CSS: 88,
-  JavaScript: 86,
-  Svelte: 84,
-  Electron: 82,
-  jQuery: 72,
-  MySQL: 70,
-  React: 62,
-  PHP: 60,
-  NodeJS: 50,
-  Java: 40,
-  WordPress: 35,
-  Linux: 30,
-  VueJS: 25,
-  Python: 5,
-}
+const skills = ["JavaScript", "WordPress", "Firebase", "Electron", "NodeJS", "Svelte", "jQuery", "MySQL", "Linux", "React", "HTML", "Java", "PHP", "CSS", "Vue"]
