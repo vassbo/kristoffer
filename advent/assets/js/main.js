@@ -110,13 +110,14 @@ function verseType() {
   }
 }
 
+const slower = [".", "!", "?", ":", ";", "-", "–", "«", "»", "‘", "’"]
 function randomSpeed(char) {
   let speed = Math.floor(Math.random() * 70) + 30 // 30-100
-  if (char == "." || char == "!" || char == "?" || char == ":" || char == "-") {
+  if (slower.includes(char)) {
     speed = Math.floor(Math.random() * 500) + 900 // 900-1400
-  } else if (char == ",") {
+  } else if (char === ",") {
     speed = Math.floor(Math.random() * 200) + 400 // 400-600
-  } else if (char == " ") {
+  } else if (char === " ") {
     speed = Math.floor(Math.random() * 50) + 50 // 50-100
   }
   return speed

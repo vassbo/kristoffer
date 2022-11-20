@@ -69,7 +69,8 @@ function openDoor(day) {
       // if (document.getElementById('day').querySelector('.verse').innerHTML !== txt) {
       if (player === undefined || (player.getVideoData() !== undefined && player.getVideoData().video_id !== id)) {
         i = 0
-        txt = advent[year][day].verse[0] + " — " + advent[year][day].verse[1] + ""
+        txt = ""
+        if (advent[year][day].verse) txt = advent[year][day].verse[0] + " — " + advent[year][day].verse[1] + ""
         document.getElementById("day").querySelector(".verse").innerHTML = ""
         clearTimeout(timeout2)
         clearTimeout(timeout)
