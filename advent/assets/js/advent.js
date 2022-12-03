@@ -492,7 +492,7 @@ const advent = {
         "Galaterne 4:4-7",
       ],
     },
-    { title: "24: ?", song: "" },
+    { title: "GOD JUL! Et annerledes juleevangelium", song: "_jsSaLkBhVg" },
   ],
 }
 
@@ -510,6 +510,7 @@ const advent = {
 // Almost There: -ClYL3pKCwI
 // All Is Well: thotoEXt42E
 // Silent Night: I6vG43-j8EA, PSxARMkZBkQ
+// Hosanna Noel: eGMjopX7aNk
 
 // other songs
 // For God Is With Us: 9HErRFLapu4
