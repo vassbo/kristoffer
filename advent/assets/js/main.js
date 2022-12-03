@@ -75,7 +75,7 @@ setInterval(unlockDoors, 60000) // every minute
 document.addEventListener("keydown", function (e) {
   if (e.key == "Escape" && esc) back()
 })
-document.getElementById("back").addEventListener("click", back)
+document.getElementById("back").addEventListener("click", () => history.back())
 function back() {
   clearTimeout(timeout)
   if (player !== undefined) player.pauseVideo()
@@ -85,7 +85,14 @@ function back() {
   document.getElementById("doors").classList.remove("hidden")
   document.getElementById("doorsClone").classList.remove("hidden")
   document.querySelector(".candles").classList.add("hidden")
+  // if (window.location.search) window.location.replace(window.location.origin)
 }
+
+// go back
+window.addEventListener("popstate", back, false)
+
+// remove search from url
+// if (window.location.search) window.location.replace(window.location.origin)
 
 document
   .getElementById("day")

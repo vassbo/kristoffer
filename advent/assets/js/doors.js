@@ -3,6 +3,8 @@ var id,
   escapeTimeout,
   esc = true
 function openDoor(day) {
+  history.pushState({ luke: day + 1 }, "Luke " + (day + 1), null)
+
   let now = new Date()
   let doorDate = new Date("12." + (day + 1) + "." + year)
   if ((doorDate < now && esc) || debug) {
