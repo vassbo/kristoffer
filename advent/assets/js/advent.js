@@ -403,7 +403,7 @@ const advent = {
       title: "Angels We Have Heard on High",
       song: "NcXfJE3ZO6E",
       verse: [
-        "Deretter hørte jeg noe som lignet et mektig kor fra en stor skare i himmelen. De sang: Halleluja! Seieren, æren og makten tilhører vår Gud,",
+        "Deretter hørte jeg noe som lignet et mektig kor fra en stor skare i himmelen. De sang: Halleluja! Seieren, æren og makten tilhører vår Gud",
         "Johannes' åpenbaring 19:1",
       ],
     },
@@ -436,7 +436,7 @@ const advent = {
       title: "A Million Lights",
       song: "4BRTCJFgwcg",
       verse: [
-        "For så sier Herren, som skapte himmelen, han som er Gud, som formet jorden og laget den, han som grunnla den og ikke skapte den tom, men formet den til å bo på: Jeg er Herren, ingen annen. Jeg har ikke talt i det skjulte, et sted i det mørke land. Jeg har ikke sagt til Jakobs ætt: «Søk meg i det tomme!» Jeg, Herren, taler rettferd og forteller hva som er rett. Samle dere og kom, kom nærmere, alle sammen, dere som har sluppet unna folkeslagene. De skjønner ingenting, de som bærer på gudebilder av tre og ber til en gud som ikke kan frelse. det kjent og legg det fram, bare hold råd sammen! Hvem har kunngjort dette på forhånd, hvem har fortalt det fra før? Er det ikke jeg, Herren? Det finnes ingen annen gud enn jeg, ingen annen rettferdig og frelsende Gud. Vend dere til meg og bli frelst, alle jordens ender! For jeg er Gud, og ingen annen.",
+        "For så sier Herren, som skapte himmelen, han som er Gud, som formet jorden og laget den, han som grunnla den og ikke skapte den tom, men formet den til å bo på: Jeg er Herren, ingen annen. Jeg har ikke talt i det skjulte, et sted i det mørke land. Jeg har ikke sagt til Jakobs ætt: «Søk meg i det tomme!» Jeg, Herren, taler rettferd og forteller hva som er rett. Samle dere og kom, kom nærmere, alle sammen, dere som har sluppet unna folkeslagene. De skjønner ingenting, de som bærer på gudebilder av tre og ber til en gud som ikke kan frelse. Gjør det kjent og legg det fram, bare hold råd sammen! Hvem har kunngjort dette på forhånd, hvem har fortalt det fra før? Er det ikke jeg, Herren? Det finnes ingen annen gud enn jeg, ingen annen rettferdig og frelsende Gud. Vend dere til meg og bli frelst, alle jordens ender! For jeg er Gud, og ingen annen.",
         "Jesaja 45:18-22",
       ],
     },
@@ -511,6 +511,7 @@ const advent = {
 // All Is Well: thotoEXt42E
 // Silent Night: I6vG43-j8EA, PSxARMkZBkQ
 // Hosanna Noel: eGMjopX7aNk
+// Come Home for Christmas: Ot0Tiqju3Bs
 
 // other songs
 // For God Is With Us: 9HErRFLapu4
