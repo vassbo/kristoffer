@@ -464,6 +464,7 @@ const advent = {
         "Dere er verdens lys! En by som ligger på et fjell, kan ikke skjules. Heller ikke tenner man en oljelampe og setter den under et kar. Nei, man setter den på en holder, så den lyser for alle i huset. Slik skal deres lys skinne for menneskene, så de kan se de gode gjerningene dere gjør, og prise deres Far i himmelen! Tro ikke at jeg er kommet for å oppheve loven eller profetene! Jeg er ikke kommet for å oppheve, men for å oppfylle.",
         "Matteus 5:14-17",
       ],
+      captions: true,
     },
 
     { title: "It’s Christmas", song: "kwa5Tig2cR0", verse: ["Vær gode mot hverandre, vis medfølelse og tilgi hverandre, slik Gud har tilgitt dere i Kristus.", "Efeserne 4:32"] },
@@ -512,6 +513,9 @@ const advent = {
 // Silent Night: I6vG43-j8EA, PSxARMkZBkQ
 // Hosanna Noel: eGMjopX7aNk
 // Come Home for Christmas: Ot0Tiqju3Bs
+// Do You Hear What I Hear?: ziXTaDqXAkQ
+// Your Praise Goes On: WbfjMlzwGE0
+// Himmel på jord: gmcr6x5Cjbk
 
 // other songs
 // For God Is With Us: 9HErRFLapu4
@@ -521,6 +525,18 @@ const advent = {
 // videos
 // In The Bleak Midwinter: KDdwJMNEjBs
 // The Jesus Story Short Film: 2Yvs-Pz8KK0
+// Spoken Word Christmas: t37v4p8TRhE // Motion Worship: 3s01D6_514c
+// Christmas Service Intro: O_H99TqWzdU
+// Joy to the World: AF-sLwWI4cs
+// "God With Us": OSB33XjQWUs
+// Behold The Lamb Christmas Intro HD: yQ5-SUL9rRk
+// The Gift 2022: 1nmrsfsoSuQ
+// A Thrill of Hope: TkaBCtBOQDo
+// He Came: A Christmas Spoken Word: ASrdsKHGK0o
+// Broken Silence - A Christmas Spoken Word: eAnWuTXoouc
+// For Unto Us - HOPE: q9CGoXMzvow
+// Christmas Peace: ofPoh2RFnXc
+// Hope Has Arrived: Oj9tNSiZWaQ
 
 ///// Not allowed /////
 // - VEVO

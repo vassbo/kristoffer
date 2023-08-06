@@ -1,130 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Elevator</title>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Elevator</title>
 
-  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script> -->
-  <link href="styles.css" rel="stylesheet" type="text/css">
+        <link href="styles.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!-- <div class="actions">
+          <div title="Mute" class="active"><span>🔈</span></div>
+          <div title="Disable alarm"><span>🔔</span></div>
+          <div title="Follow elevator"><span>📌</span></div>
+        </div> -->
 
-  <!--  inspiration: https://medium.com/@WebReflection/a-javascript-elevator-9b55e1d4acc8
-        elevator: https://webreflection.github.io/elevator/the-elevator/
-        source code: https://github.com/WebReflection/elevator -->
-</head>
-<body>
-  <!-- <button id="open-doors" onclick="elevator_open()">◁│▷</button>
-  <button id="close-doors" onclick="elevator_close()">▷│◁</button> -->
-
-
-<!-- floor number -->
-<!-- elevators floor number & direction -->
-<div id="floorsDiv">
-  <div id="debug">
-    Queue: <span class="queue"></span>
-    <br>
-    Next floor: <span class="nextFloor"></span>
-    <br>
-    Direction: <span class="direction"></span>
-  </div>
-
-
-  <div id="elevatorDiv">
-    <div id="elevator">
-      <div class="elevator-door elevator-door1"></div>
-      <div class="elevator-door elevator-door2"></div>
-      <!-- <div id="elevator-inside"></div> -->
-      <div class="scene">
-        <div class="cube" onclick="elevator_open()">
-          <!-- TODO: can be clicked on even if the doors are closed -->
-          <!-- <div class="cube__face cube__face--front">front</div> -->
-          <div class="cube__face cube__face--back"></div>
-          <div class="cube__face cube__face--right"></div>
-          <div class="cube__face cube__face--left"></div>
-          <div class="cube__face cube__face_bottom cube__face--top"></div>
-          <div class="cube__face cube__face_bottom cube__face--bottom"></div>
+        <div id="floorsDiv">
+            <!-- floorElements -->
+            <!-- elevatorElements -->
         </div>
-      </div>
-    </div>
-  </div>
 
+        <div id="elevator_buttons">
+            <!-- WIP dropdown to choose different elevators! -->
+            <button class="metal radial" onclick="closeDoorsInside()" style="font-size: 22px">▷│◁</button>
+            <button id="bell" class="metal radial bell" onclick="bell();" style="font-size: 30px">🔔</button>
+            <button class="metal radial" onclick="openDoorsInside()" style="font-size: 22px">◁│▷</button>
+            <!-- WIP generate this with js -->
+            <br />
+            <button id="2" class="metal radial" onclick="floor(this.id)">7</button>
+            <button id="1" class="metal radial" onclick="floor(this.id)">8</button>
+            <button id="0" class="metal radial" onclick="floor(this.id)">9</button>
+            <br />
+            <button id="5" class="metal radial" onclick="floor(this.id)">4</button>
+            <button id="4" class="metal radial" onclick="floor(this.id)">5</button>
+            <button id="3" class="metal radial" onclick="floor(this.id)">6</button>
+            <br />
+            <button id="8" class="metal radial" onclick="floor(this.id)">1</button>
+            <button id="7" class="metal radial" onclick="floor(this.id)">2</button>
+            <button id="6" class="metal radial" onclick="floor(this.id)">3</button>
+            <br />
+            <button id="11" class="metal radial" onclick="floor(this.id)">P</button>
+            <button id="10" class="metal radial" onclick="floor(this.id)">B</button>
+            <button id="9" class="metal radial ground" onclick="floor(this.id)">G</button>
+            <br />
+        </div>
 
-
-  <!-- <div class="outside_buttons" id="outside_buttons3">
-    <p class="floorNum">3</p>
-    <div style="display:inline-block;">
-      <button id="up3" class="metal radial outside" onclick="call('up', this.id)">⬆</button>
-      <button id="down3" class="metal radial outside" onclick="call('down', this.id)">⬇</button>
-    </div>
-    <div class="screen"><p><span class="screenFloor">G</span> <span class="screenDirection">⬆</span></p></div>
-  </div>
-
-  <div class="outside_buttons" id="outside_buttons2">
-    <p class="floorNum">2</p>
-    <div style="display:inline-block;">
-      <button id="up2" class="metal radial outside" onclick="call('up', this.id)">⬆</button>
-      <button id="down2" class="metal radial outside" onclick="call('down', this.id)">⬇</button>
-    </div>
-    <div class="screen"><p><span class="screenFloor">G</span> <span class="screenDirection">⬆</span></p></div>
-  </div>
-
-  <div class="outside_buttons" id="outside_buttons1">
-    <p class="floorNum">1</p>
-    <div style="display:inline-block;">
-      <button id="up1" class="metal radial outside" onclick="call('up', this.id)">⬆</button>
-      <button id="down1" class="metal radial outside" onclick="call('down', this.id)">⬇</button>
-    </div>
-    <div class="screen"><p><span class="screenFloor">G</span> <span class="screenDirection">⬆</span></p></div>
-  </div>
-
-  <div class="outside_buttons" id="outside_buttons0">
-    <p class="floorNum">0</p>
-    <div style="display:inline-block;">
-      <button id="up0" class="metal radial outside" onclick="call('up', this.id)">⬆</button>
-      <button id="down0" class="metal radial outside" onclick="call('down', this.id)">⬇</button>
-    </div>
-    <div class="screen"><p><span class="screenFloor">G</span> <span class="screenDirection">⬆</span></p></div>
-  </div> -->
-</div>
-
-
-  <div id="elevator_buttons">
-
-    <button class="metal radial" onclick="elevator_close()" style="font-size: 30px">▷│◁</button>
-    <button id="bell" class="metal radial bell" onclick="floor(this.id);bell();">🔔</button>
-    <button class="metal radial" onclick="elevator_open()" style="font-size: 30px">◁│▷</button>
-    <br>
-    <button id="7" class="metal radial" onclick="floor(this.id)">7</button>
-    <button id="8" class="metal radial" onclick="floor(this.id)">8</button>
-    <button id="9" class="metal radial" onclick="floor(this.id)">9</button>
-    <br>
-    <button id="4" class="metal radial" onclick="floor(this.id)">4</button>
-    <button id="5" class="metal radial" onclick="floor(this.id)">5</button>
-    <button id="6" class="metal radial" onclick="floor(this.id)">6</button>
-    <br>
-    <button id="1" class="metal radial" onclick="floor(this.id)">1</button>
-    <button id="2" class="metal radial" onclick="floor(this.id)">2</button>
-    <button id="3" class="metal radial" onclick="floor(this.id)">3</button>
-    <br>
-    <button id="-2" class="metal radial" onclick="floor(this.id)">P</button> <!-- Parking -->
-    <button id="-1" class="metal radial" onclick="floor(this.id)">B</button> <!-- Basement (More common: S?)-->
-    <button id="0" class="metal radial ground" onclick="floor(this.id)">G</button> <!-- Ground Floor -->
-    <br>
-
-
-    <!-- <button class="metal radial">✈</button>
-    <button class="metal linear">2</button>
-    <button class="metal linear">1</button>
-    <button class="metal linear">0</button> -->
-
-  </div>
-
-
-
-
-
-  <script src="script.js"></script>
-  <!-- <script src="script_newest.js"></script> -->
-</body>
+        <script src="helpers.js"></script>
+        <script src="script.js"></script>
+    </body>
 </html>

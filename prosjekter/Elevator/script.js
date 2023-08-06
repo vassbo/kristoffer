@@ -1,365 +1,362 @@
+const floors = [
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    "G", // ground
+    "B", // basement (more common: S ?)
+    "P", // parking
+]
 
-// TODO: styles
-// TODO: outside buttons...
+// WIP different "rest" floors: G, 9, 5, etc.
 
-// var floors = [-2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-var floors = [
-  9,
-  8,
-  7,
-  6,
-  5,
-  4,
-  3,
-  2,
-  1,
-  0, // G: ground
-  -1, // B: basement
-  -2 // P: parking
-];
+// WIP change this in real time
+const elevators = 3
 
-// TODO: local storage? ...
-var elevator = {
-  currentFloor: 0,
-  moving: false,
-  direction: '', // ⬆ / ⬇ // TODO: REMOVE movingDirection...?
-  moveSpeed: 1000, // 10000 // TODO: 12000
-  doorSpeed: 1000, // the time it takes for the doors to open/close // 3500
-  closingCooldown: 5000, // used when opened generally
-  closingCooldownFaster: 3000 // used when a new floor is in the queue
-};
-
-var queue = []; // 0
-
-
-(function initialize() {
-  var btns = '';
-  for (var i = 0; i < floors.length; i++) {
-    var floor = floors[i];
-    btns += '<div class="outside_buttons" id="outside_buttons' + floor + '">' +
-      '<p class="floorNum">' + getFloorName(floor) + '</p>' +
-      '<div style="display:inline-block;">' +
-        '<button id="' + floor + 'up" class="metal radial outside" onclick="call(\'up\', this.id)">⬆</button>' +
-        '<button id="' + floor + 'down" class="metal radial outside" onclick="call(\'down\', this.id)">⬇</button>' +
-      '</div>' +
-      '<div class="screen"><p><span class="screenFloor">G</span> <span class="screenDirection">⬆</span></p></div>' + // TODO: screen on load
-    '</div>';
-  }
-  document.getElementById("floorsDiv").innerHTML += btns;
-
-  goToFloor(elevator.currentFloor, true);
-})();
-
-function getFloorName(floor) {
-  if (floor == 0) floor = 'G';
-  else if (floor == -1) floor = 'B';
-  else if (floor == -2) floor = 'P';
-  return floor;
+let elevatorData = []
+const defaultData = {
+    direction: "",
+    goingTo: "",
+    doorsOpened: false,
+    innerQueue: [],
+    alarm: false,
 }
 
-function toNumber(floor) {
-  if (floor == 'G') floor = 0;
-  else if (floor == 'B') floor = -1;
-  else if (floor == 'P') floor = -2;
-  return Number(floor);
+// const options = {
+//     speedPerFloor: 0.2,
+//     doorTime: 1,
+//     closingCooldown: 0.5,
+// }
+const options = {
+    speedPerFloor: 2,
+    doorTime: 3,
+    closingCooldown: 4,
 }
 
+var queue = [] // 0
 
+;(function initialize() {
+    generateFloors()
+    createElevators()
 
+    // set door timeout
+    let doors = document.querySelectorAll(".elevator-door")
+    doors.forEach((door) => {
+        door.style.transition = options.doorTime + "s"
+    })
+})()
 
+function generateFloors() {
+    const upBtn = '<button class="button_up metal radial outside" onclick="callElevator(this, \'up\')">⬆</button>'
+    const downBtn = '<button class="button_down metal radial outside" onclick="callElevator(this, \'down\')">⬇</button>'
 
+    let floorElements = floors
+        .map((floor, i) => {
+            let buttons = ""
+            if (i > 0) buttons += upBtn
+            if (i < floors.length - 1) buttons += downBtn
 
+            let html = `<div id="floor_${i}" class="floor">
+            <span class="floorNum">${floor}</span>
+            <span class="buttons">${buttons}</span>
+            <span class="elevatorArea" id="area_${floor}"></span>
+        </div>`
+            // <span class="screen"><span class="screenFloor">G</span></span>
 
-function goToFloor(floor, initialize) {
-  console.log(elevatorDoorOffset());
-  if (elevatorDoorOffset() !== 0 && Number(floor) !== elevator.currentFloor) { // not closed && request is not on current floor
-    var checkDoor = setInterval(function () {
-      if (elevatorDoorOffset() == -100) { // is this nessesary????????
-        setTimeout(function () {
-          // console.log('Closing2');
-          elevator_close();
-        }, elevator.closingCooldownFaster);
-      }
-      if (elevatorDoorOffset() == 0) { // closed
-        clearInterval(checkDoor);
-        moveToFloor(floor);
-        elevator_close();
-      }
-    }, 10);
-  } else {
-    // sortAsc();
-    moveToFloor(getNextFloor(floor), initialize); // queue[0]
-  }
+            return html
+        })
+        .join("")
+
+    document.getElementById("floorsDiv").innerHTML += floorElements
 }
 
+function createElevators() {
+    let area = document.querySelector("#area_G") || document.querySelector(".elevatorArea")
+    let top = area.closest(".floor").offsetTop
+    let left = area.offsetLeft
+    let areaWidth = area.clientWidth
+    const parts = areaWidth / (elevators + 1)
 
+    let elevatorElements = [...Array(elevators).keys()]
+        .map((i) => {
+            elevatorData.push({ ...JSON.parse(JSON.stringify(defaultData)), id: `elevator_${i}` })
 
+            return `<div id="elevator_${i}" class="elevator" style="left: ${left + parts * (i + 1)}px;top: ${top}px;">
+                <div class="elevator-door elevator-door1"></div>
+                <div class="elevator-door elevator-door2"></div>
+                <div class="scene">
+                    <div class="cube" onclick="openDoors(null, ${i})">
+                    </div>
+                </div>
+            </div>`
+        })
+        .join("")
 
+    document.getElementById("floorsDiv").innerHTML += elevatorElements
+}
 
+function getElevators() {
+    return elevatorData.filter((a) => !a.alarm)
+}
 
+let waiting = { up: [], down: [] }
+function callElevator(elem, direction) {
+    let floorIndex = elem.closest(".floor").id.split("_")[1]
+    if (waiting[direction].includes(floorIndex)) return
 
-
-
-
-var floor2 = 0, floorTwo = 0;
-function moveToFloor(floor, initialize) {
-  elevator.moving = true;
-  console.log(floor);
-  var top = document.getElementById("outside_buttons" + floor).offsetTop;
-  var elevatorHeight = document.getElementById("elevator").offsetHeight;
-  var halfElevatorHeight = elevatorHeight / 2;
-  var halfDivHeight = document.getElementsByClassName("outside_buttons")[0].offsetHeight / 2;
-  document.getElementById("elevatorDiv").style.top = (top - halfElevatorHeight + halfDivHeight) + 'px';
-
-  elevator.direction = getDirection(floor);
-  updateScreens(elevator.currentFloor, elevator.direction);
-
-  var trackFloor = setInterval(function () {
-    var query = document.querySelectorAll(".outside_buttons");
-    for (var i = 0; i < query.length; i++) {
-      var elevatorTop = document.getElementById("elevatorDiv").offsetTop;
-      floor2 = query[i].getElementsByClassName("floorNum")[0].innerHTML;
-      var outsideCenter = query[i].offsetTop + halfDivHeight;
-      if (elevator.direction == '⬆' && outsideCenter < (elevatorTop + elevatorHeight) && outsideCenter > (elevatorTop - halfElevatorHeight)) {
-        updateScreens(floor2, elevator.direction);
-        floorTwo = floor2;
-      } else if (elevator.direction == '⬇' && outsideCenter < (elevatorTop + elevatorHeight) && outsideCenter > elevatorTop) {
-        updateScreens(floor2, elevator.direction);
-        floorTwo = floor2;
-      }
-      // if (query[i].offsetTop > (top + halfElevatorHeight + halfDivHeight) && query[i].offsetTop < (top - halfElevatorHeight + halfDivHeight)) {
-      //   updateScreens(floor, getDirection(floor));
-      // }
+    let elevatorOnCurrentFloor = getElevators().find((a) => getCurrentElevatorFloor(a.id) === floorIndex)
+    if (elevatorOnCurrentFloor) {
+        openDoors(elevatorOnCurrentFloor)
+        return
     }
-  }, 20);
 
+    if (elem.classList.contains("active")) return
 
+    elem.classList.add("active")
+    waiting[direction].push(floorIndex)
 
-  var queueActive = false;
-  var next = getNextFloor(toNumber(floorTwo));
-  var checkFloor = setInterval(function () {
-    // if (elevator.direction == '⬆') { // movingDirection
-    //   sortAsc();
-    // } else if (elevator.direction == '⬇') { // movingDirection
-    //   sortDesc();
-    // }
-    console.log('------');
-    console.log(floor); // 5
-    console.log(next); // 4
-    if (floor !== next) { // queue[0]
-      console.log('ARRIVED!!!!');
-      queueActive = true;
-      clearInterval(trackFloor);
-      clearInterval(checkFloor);
-      moveToFloor(next); // goToFloor??  ||  queue[0]
-      // removeCurrentFloor();
-    }
-  }, 10);
+    calculateMove()
+}
 
+function openDoors(data, index) {
+    if (!data) data = elevatorData[index]
+    if (data.alarm) return
 
+    let elevator = document.querySelector("#" + data.id)
+    let door1 = elevator.querySelector(".elevator-door1")
+    let door2 = elevator.querySelector(".elevator-door2")
 
-  if (initialize === true) {
-    clearInterval(trackFloor);
-    clearInterval(checkFloor);
-    elevatorArrived(floor);
-    removeCurrentFloor();
-  } else if (floor == elevator.currentFloor) {
-    clearInterval(trackFloor);
-    clearInterval(checkFloor);
-    elevatorArrived(floor);
-    elevator_open();
-  } else {
-    setTimeout(function () {
-      if (!queueActive) {
-        elevator.currentFloor = Number(floor);
-        updateScreens(floor, '');
-        clearInterval(trackFloor);
-        clearInterval(checkFloor);
-        elevatorArrived(floor);
-        elevator_open();
-        removeCurrentFloor();
-        if (queue.length > 0) {
-          setTimeout(function () {
-            goToFloor(getNextFloor(toNumber(floor2))); // TODO: WIP
-          }, 1000); // start go to next action 1 second after arrival
+    door1.classList.add("opened")
+    door2.classList.add("opened")
+    data.doorsOpened = true
+
+    if (data.doorsOpening) clearTimeout(data.doorsOpening)
+    data.doorsOpening = setTimeout(() => {
+        data.doorsOpening = null
+
+        data.closingDoors = setTimeout(() => {
+            closeDoors(data)
+        }, options.closingCooldown * 1000)
+    }, options.doorTime * 1000)
+}
+
+function closeDoors(data) {
+    if (data.doorsOpening) return
+    clearTimeout(data.closingDoors)
+
+    let elevator = document.querySelector("#" + data.id)
+    let door1 = elevator.querySelector(".elevator-door1")
+    let door2 = elevator.querySelector(".elevator-door2")
+
+    door1.classList.remove("opened")
+    door2.classList.remove("opened")
+
+    data.closingDoors = setTimeout(() => {
+        data.doorsOpened = false
+
+        data.goingTo = ""
+        calculateMove()
+    }, options.doorTime * 1000)
+}
+
+function calculateMove() {
+    console.log("---- CALCULATE ----")
+    let up = JSON.parse(JSON.stringify(waiting.up))
+    let down = JSON.parse(JSON.stringify(waiting.down))
+
+    let inUse = getElevators()
+        .map((a) => a.goingTo)
+        .filter((a) => a)
+
+    let innerQueueUp = []
+    let innerQueueDown = []
+
+    // inner queue
+    getElevators().forEach((data) => {
+        if (!data.innerQueue?.length) return
+
+        let queue = data.innerQueue
+        if (data.direction === "down") {
+            queue = queue.sort((a, b) => a - b)
+            innerQueueDown.push(...queue)
+        } else {
+            queue = queue.sort((a, b) => b - a)
+            innerQueueUp.push(...queue)
         }
-      }
-      document.getElementById('debug').querySelector('.queue').innerHTML = queue;
-    }, elevator.moveSpeed);
-  }
-}
 
+        let elevatorFloor = getCurrentElevatorFloor(data.id)
+        let closestFloorIndex = queue.findIndex((a) => (data.direction === "down" ? Number(a) >= Number(elevatorFloor) : Number(a) <= Number(elevatorFloor)))
+        if (closestFloorIndex < 0) closestFloorIndex = 0
 
-function removeCurrentFloor() {
-  queue.splice(queue.indexOf(elevator.currentFloor), 1);
-}
+        let closestFloor = queue[closestFloorIndex]
+        if (!data.direction) data.futureDirection = "up"
+        data.goingTo = closestFloor
+    })
 
+    up = up.sort((a, b) => b - a).filter((a) => !inUse.includes(a) && !innerQueueUp.includes(a))
+    down = down.sort((a, b) => a - b).filter((a) => !inUse.includes(a) && !innerQueueDown.includes(a))
+    // console.log(inUse, up, down)
 
+    let emptyElevator = getElevators().find((a) => a.goingTo === "" && !a.doorsOpened) // !a.direction &&
+    let upElevator = getElevators().find((a) => a.direction === "up")
+    let downElevator = getElevators().find((a) => a.direction === "down")
+    // console.log(emptyElevator, upElevator, downElevator)
 
-function getNextFloor(floor) {
-  console.log('~~~~~~~~~~~~~~~~~');
-  console.log(floor);
-  // var i = 0;
-  sortAsc();
-  document.getElementById('debug').querySelector('.queue').innerHTML = queue;
-  // queue.sort();
-  var bigger = false;
-  var smaller = false;
-  var out = floor;
-  for (var i = 0; i < queue.length; i++) {
-    if (queue[i] >= floor) {
-      bigger = queue[i]; // smallest bigger
-      break;
-    } else if (queue[i] < floor) {
-      smaller = queue[i]; // biggest smaller
+    let needsElevator = []
+
+    if (up.length) {
+        if (upElevator && !upElevator.doorsOpened) {
+            let elevatorFloor = getCurrentElevatorFloor(upElevator.id)
+            let closestFloorIndex = up.findIndex((a) => Number(a) <= Number(elevatorFloor))
+            // console.log(closestFloorIndex, elevatorFloor)
+            if (closestFloorIndex > -1) {
+                let closestFloor = up[closestFloorIndex]
+                upElevator.futureDirection = "up"
+                upElevator.goingTo = closestFloor
+
+                needsElevator = up.slice(0, closestFloorIndex)
+            } else {
+                needsElevator = up
+            }
+        } else if (emptyElevator && !emptyElevator.goingTo && (downElevator || !down.length)) {
+            emptyElevator.futureDirection = "up"
+            emptyElevator.goingTo = up[0]
+        }
+
+        if (needsElevator.length && emptyElevator && !emptyElevator.goingTo && (downElevator || !down.length)) {
+            emptyElevator.futureDirection = "up"
+            emptyElevator.goingTo = needsElevator[0]
+        }
     }
-  }
 
-  console.log(bigger);
-  console.log(smaller);
+    needsElevator = []
 
-  if (elevator.direction == '⬆') { // movingDirection
-    if (bigger !== false) {
-      out = bigger;
-    } else if (smaller !== false) {
-      out = smaller;
-      elevator.direction = '⬇'; // movingDirection
+    if (down.length) {
+        if (downElevator && !downElevator.doorsOpened) {
+            let elevatorFloor = getCurrentElevatorFloor(downElevator.id)
+            let closestFloorIndex = down.findIndex((a) => Number(a) >= Number(elevatorFloor))
+            if (closestFloorIndex > -1) {
+                let closestFloor = down[closestFloorIndex]
+                downElevator.futureDirection = "down"
+                downElevator.goingTo = closestFloor
+
+                needsElevator = down.slice(0, closestFloorIndex)
+            } else {
+                needsElevator = down
+            }
+        } else if (emptyElevator && !emptyElevator.goingTo) {
+            emptyElevator.futureDirection = "down"
+            emptyElevator.goingTo = down[0]
+        }
+
+        if (needsElevator.length && emptyElevator && !emptyElevator.goingTo) {
+            emptyElevator.futureDirection = "down"
+            emptyElevator.goingTo = needsElevator[0]
+        }
     }
-  } else if (elevator.direction == '⬇') { // movingDirection
-    if (smaller !== false) {
-      out = smaller;
-    } else if (bigger !== false) {
-      out = bigger;
-      elevator.direction = '⬆'; // movingDirection
+
+    // move elevators
+    getElevators().forEach(moveElevator)
+}
+
+function moveElevator(data, i) {
+    if (data.goingTo === "") {
+        data.direction = ""
+        return
     }
-  }
+    if (data.doorsOpened || data.alarm) return
 
-  document.getElementById('debug').querySelector('.nextFloor').innerHTML = out;
-  return out;
+    if (elevatorData[i].timeout) clearTimeout(elevatorData[i].timeout)
+
+    let elevatorElem = document.querySelector("#" + data.id)
+    let floorElem = document.querySelector("#floor_" + data.goingTo)
+    let floorTop = floorElem.offsetTop
+
+    // calculate time
+    let elevatorFloor = getCurrentElevatorFloor(data.id)
+    let floorDifference = Math.abs(data.goingTo - elevatorFloor)
+    const secondsToArrive = floorDifference * options.speedPerFloor || 0.8
+
+    elevatorElem.style.top = floorTop + "px"
+    elevatorElem.style.transition = `top ${secondsToArrive}s`
+
+    elevatorData[i].timeout = setTimeout(() => {
+        console.log("ARRIVED AT FLOOR " + floors[data.goingTo])
+
+        // set direction from futureDirection
+        if (data.futureDirection) {
+            data.direction = data.futureDirection
+            delete data.futureDirection
+        }
+
+        // reset call button
+        floorElem.querySelector(".button_" + data.direction).classList.remove("active")
+
+        // remove from waiting
+        let currentFloorIndex = waiting[data.direction].findIndex((a) => Number(a) === Number(data.goingTo))
+        if (currentFloorIndex > -1) waiting[data.direction].splice(currentFloorIndex, 1)
+
+        let innerIndex = data.innerQueue.indexOf(data.goingTo)
+        if (innerIndex > -1) data.innerQueue.splice(innerIndex, 1)
+
+        if (data.alarm) return
+
+        openDoors(data), 100
+    }, secondsToArrive * 1000 * 1.2)
 }
-
-
-
-
-
-
-
-
-
-
-
-function elevatorArrived(floor) {
-  // clearInterval(trackFloor);
-  elevator.moving = false;
-  document.getElementById(floor).classList.remove("active");
-  document.getElementById(floor + 'up').classList.remove("callActive");
-  document.getElementById(floor + 'down').classList.remove("callActive");
-}
-
-
-
-function getDirection(newFloor) {
-  newFloor = Number(newFloor);
-  elevator.direction = '';
-  if (newFloor > elevator.currentFloor) {
-    elevator.direction = '⬆';
-  } else if (newFloor < elevator.currentFloor) {
-    elevator.direction = '⬇';
-  }
-  document.getElementById('debug').querySelector('.direction').innerHTML = elevator.direction;
-  return elevator.direction;
-}
-
-function updateScreens(floor, direction) {
-  floor = getFloorName(floor);
-  var query = document.querySelectorAll(".screen");
-  for (var i = 0; i < query.length; i++) {
-    query[i].getElementsByClassName("screenFloor")[0].innerHTML = floor;
-    query[i].getElementsByClassName("screenDirection")[0].innerHTML = direction;
-  }
-}
-
-
-
-
-
-function elevator_open() {
-  if (elevatorDoorOffset() !== -100 && !elevator.moving) { // 0 = closed, -100 = opened
-    document.getElementsByClassName("elevator-door1")[0].classList.add("opened");
-    document.getElementsByClassName("elevator-door2")[0].classList.add("opened");
-    auto_close();
-  }
-}
-function elevator_close() {
-  if (elevatorDoorOffset() == -100 && !elevator.moving) { // 0 = closed, -100 = opened
-    document.getElementsByClassName("elevator-door1")[0].classList.remove("opened");
-    document.getElementsByClassName("elevator-door2")[0].classList.remove("opened");
-  }
-}
-
-function elevatorDoorOffset() {
-  return document.getElementsByClassName("elevator-door1")[0].offsetLeft;
-}
-
-var timeout;
-function auto_close() {
-  clearTimeout(timeout);
-  var timing = elevator.doorSpeed - (Math.abs(elevatorDoorOffset()) / 100 * elevator.doorSpeed);
-  timeout = setTimeout(function() {
-    elevator_close();
-  }, timing + elevator.closingCooldown);
-}
-
-
-
-// TODO: alarm
-var alarm = false;
-function bell(id) {
-  alarm = true;
-  updateScreens(elevator.currentFloor, '<span style="font-size:30px;filter:grayscale(80%);">⚠️</span>');
-  // alert...
-}
-
 
 // floor buttons
-function floor(id) {
-  if (!alarm && !document.getElementById(id).classList.contains("active") && elevator.currentFloor !== id) {
-    document.getElementById(id).classList.add("active");
-    var query = document.querySelectorAll('.active');
-    if (query.length >= 12) {
-      for (var i = 0; i < 12; i++) {
-        query[i].classList.remove("active");
-      }
-      queue = [];
-    } else {
-      queue.push(Number(id));
-      console.log(queue);
-      if (queue.length <= 1) goToFloor(id);
+const selectedElevator = 0
+function floor(floorIndex) {
+    let data = elevatorData[selectedElevator]
+
+    if (data.alarm || data.innerQueue.includes(floorIndex)) return
+
+    data.innerQueue.push(floorIndex)
+
+    calculateMove()
+}
+
+function openDoorsInside() {
+    let data = elevatorData[selectedElevator]
+    if (data.alarm) return
+
+    openDoors(data)
+}
+function closeDoorsInside() {
+    let data = elevatorData[selectedElevator]
+    if (data.alarm) return
+
+    closeDoors(data)
+}
+
+//////////////
+
+// WIP update screens (don't work with multiple elevators)
+function updateScreens(floor, direction) {
+    floor = getFloorName(floor)
+    var query = document.querySelectorAll(".screen")
+    for (var i = 0; i < query.length; i++) {
+        query[i].getElementsByClassName("screenFloor")[0].innerHTML = floor
+        query[i].getElementsByClassName("screenDirection")[0].innerHTML = direction
     }
-  }
 }
 
-// selecting 11 of the buttons and clicking alarm will deselect everything...
+var alarm = false
+function bell() {
+    let data = elevatorData[selectedElevator]
+    data.alarm = !data.alarm
 
-// TODO: no text selecting...
+    let bellElem = document.querySelector("#bell")
+    if (data.alarm) bellElem.classList.add("active")
+    else bellElem.classList.remove("active")
 
+    // updateScreens('<span style="font-size:0.8em;filter:grayscale(80%);">⚠️</span>', null) // elevator.currentFloor
 
-function sortAsc() {
-  queue = queue.sort(function(a, b) {return a-b;});
-}
-function sortDesc() {
-  queue = queue.sort(function(a, b) {return b-a;});
-}
-
-
-
-// outside buttons
-function call(direction, id) {
-  if (!alarm) {
-    document.getElementById(id).classList.add("callActive");
-    queue.push(Number(id.replace(/[^0-9-]+/g, '')));
-    // queue.push('up2');
-    // '2' + 'up2' + 'down2' ....
-    goToFloor(id.replace(/[^0-9-]+/g, ''));
-  }
+    // stop elevator!
 }
