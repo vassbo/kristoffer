@@ -40,7 +40,7 @@ function getStored() {
 checkSunday()
 function checkSunday() {
     var now = new Date()
-    if (now >= new Date("12.1." + year) && now < new Date("12.24." + year)) {
+    if (now >= new Date(`${year}-12-1`) && now < new Date(`${year}-12-24`)) {
         if (now.getDay() == 7) document.body.style.backgroundColor = "#41005b"
     } else document.body.style.backgroundColor = null
 }
@@ -52,7 +52,7 @@ function unlockDoors() {
     let doorsClone = document.getElementById("doorsClone").querySelectorAll(".door")
     for (let i = 0; i < doors.length; i++) {
         let now = new Date()
-        let doorDate = new Date("12." + (i + 1) + "." + year)
+        let doorDate = new Date(`${year}-12-${("0" + (i + 1)).slice(-2)}`)
         if (doorDate < now || openAllDoors) {
             doors[i].classList.remove("locked")
             doors[i].setAttribute("tabindex", "1")
