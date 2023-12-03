@@ -6,7 +6,7 @@ function openDoor(day) {
     history.pushState({ luke: day + 1 }, "Luke " + (day + 1), null)
 
     let now = new Date()
-    let doorDate = new Date(`${year}-12-${("0" + (i + 1)).slice(-2)}`)
+    let doorDate = new Date(`${year}-12-${("0" + (day + 1)).slice(-2)}`)
     if ((doorDate < now && esc) || openAllDoors) {
         esc = false
         clearTimeout(escapeTimeout)
