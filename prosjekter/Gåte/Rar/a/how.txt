@@ -1,1 +1,0 @@
-copy /b image.jpg + image.zip imagezip.jpg

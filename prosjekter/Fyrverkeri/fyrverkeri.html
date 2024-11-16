@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Fyrverkeri</title>
+  <style>
+
+    * {
+      margin: 0;
+      padding: 0;
+      /* cursor: none; */
+    }
+    body {
+      background-image: url("bilder/night_city.jpg");
+      /* background-position: center; */
+      background-repeat: no-repeat;
+      background-size: cover;
+      overflow: hidden;
+    }
+    #rocket {
+      display: none;
+      position: absolute;
+      left: 50%;
+      bottom: 0px;
+    }
+    #explotion {
+      position: absolute;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-name: explotion;
+      animation-duration: 3s;
+    }
+    @-webkit-keyframes explotion {
+      0% {width: 0px;}
+      60% {width: 600px;}
+      100% {opacity: 0;}
+    }
+    /* debug */
+    /* img {
+      border: 1px dashed white;
+    } */
+
+  </style>
+</head>
+<body id="body">
+  <img id="rocket" src="bilder/rocket.png"></img>
+
+  <script>
+
+  // set variables
+  var rocketBottom = 0;
+  var ready = 1;
+  var fuse = new Audio('fuse.wav');
+  var mousePosition = 200;
+
+  // get mouse position on mouse move
+  document.addEventListener('mousemove', function(mouseMoveEvent){
+    mousePosition = mouseMoveEvent.pageY;
+  }, false);
+
+  // launch rocket on mouse down
+  // document.addEventListener('mousedown', function(mouseMoveEvent){
+  //   rocket();
+  // }, false);
+
+  // detect keypress
+  document.getElementById("body").addEventListener("keypress", rocket);
+
+  // move and show rocket
+  function rocket(e) {
+    // check if the pressed key is space
+    if (e.keyCode == '32' && ready == 1) {
+      ready = 0;
+      var pos = mousePosition;
+      var rocket = document.getElementById("rocket");
+
+      // display rocket
+      rocket.style.display = "inherit";
+
+      // play fuse sound
+      fuse.volume = 0.3;
+      fuse.play();
+
+      // repeat this every 0.01 seconds
+      var interval = setInterval(function(){
+
+        var rocketTop = Math.round(rocket.getBoundingClientRect().top);
+
+        // execute this until the rocket meets pointer position
+        if (rocketTop !== pos && rocketTop > pos) {
+
+          if (rocketTop - pos <= 150 && rocketTop - pos > 100) { // 150px left to the pointer
+            rocketBottom = rocketBottom + 4;
+          } else if (rocketTop - pos <= 100 && rocketTop - pos > 50) {
+            rocketBottom = rocketBottom + 3;
+          } else if (rocketTop - pos <= 50 && rocketTop - pos > 20) {
+            rocketBottom = rocketBottom + 2;
+          } else if (rocketTop - pos <= 20 && rocketTop - pos > 1) {
+            rocketBottom = rocketBottom + 1;
+          } else if (rocketTop - pos <= 1) { // 0px left to the pointer
+            clearInterval(interval);
+            // fuse.pause();
+            explode();
+          } else {
+            rocketBottom = rocketBottom + 5;
+          }
+
+          rocket.style.bottom = rocketBottom + "px";
+        } else {
+          // do this if the mouse is under the top of the rocket
+          clearInterval(interval);
+          fuse.pause();
+          rocket.style.display = "none";
+          ready = 1;
+        }
+        // console.log("Rocket Top: " + Math.round(rocket.getBoundingClientRect().top) + ", Mouse top: " + pos);
+      }, 10);
+    }
+  }
+
+  // execute explotion
+  function explode() {
+
+    var rocket = document.getElementById("rocket");
+    var explotionPos = rocket.getBoundingClientRect().top;
+    var explotionPos1 = rocket.getBoundingClientRect().left;
+
+    var randImg = Math.floor(Math.random() * 2) + 1;
+    var randHue = Math.floor(Math.random() * 360) + 1;
+    // var randSec = Math.floor(Math.random() * 3) + 1;
+    switch (randImg) {
+      case 2:
+      randImg = 4;
+      break;
+    }
+
+    // create image element
+    var img = document.createElement("img");
+    img.src = "bilder/firework" + randImg + ".png";
+    img.setAttribute("id", "explotion");
+
+    // append image to body
+    var append = document.getElementById("body");
+    append.appendChild(img);
+
+    // set css properties
+    // var explotion = document.getElementById("explotion");
+    img.style.filter = "hue-rotate(" + randHue + "deg)";
+    img.style.filter = "brigtness(400%)";
+    // img.style.animationDuration = randSec + "s";
+
+    img.style.top = explotionPos + "px";
+    img.style.left = explotionPos1 + "px";
+
+    // play explotion sound
+    var bang = new Audio('bang.wav');
+    bang.volume = 0.3;
+    bang.play();
+
+    // remove image element after 2.4 seconds
+    setTimeout(function (){
+      img.remove();
+      ready = 1;
+    }, 2400);
+
+    // reset rocket
+    rocket.style.display = "none";
+    rocketBottom = 0;
+  }
+
+  </script>
+</body>
+</html>
